@@ -1,3 +1,4 @@
+
 require("dotenv").config()
 const express = require('express')
 const fs = require('fs')
@@ -16,8 +17,6 @@ const app = express()
 
 
 
-
-app.use('/api', router)
 app.use(cors())
 
 app.use(express.json())
