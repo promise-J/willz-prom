@@ -10,6 +10,7 @@ import Homepage from "./pages/landing/Homepage";
 import { useModal } from "./context/ModalContext";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
+import VerifyEmail from "./pages/auth/VerifyEmail";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -58,6 +59,7 @@ function App() {
         <Route index element={<Homepage />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
       </Route>
       {/* <Route path="/auth" element={<AuthLayout />}>
         <Route path="signin-email" element={<LoginWithEmail />} />

@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <div className="border-b-2 h-[90px]">
       <div className="flex justify-between px-8 h-full items-center">
-        <h1>AppSar logo</h1>
+        <img className="w-[80px] h-[50px]" src="/images/app-sar.jpg" />
         <div className="flex items-center h-full gap-12">
           <Link className="text-blue-900" to='/sign-up'>Sign up</Link>
           <ImMenu cursor={'pointer'} size={25} />
