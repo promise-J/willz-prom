@@ -51,7 +51,7 @@ class UserService extends BaseService {
         return BaseService.sendFailedResponse({error: this.server_error_message})
     }
   }
-  async loginUser(req, res) {
+  async loginUser(req) {
     try {
       const post = req.body;
 
@@ -67,7 +67,7 @@ class UserService extends BaseService {
 
       const validateResult = validateData(post, validateRule, validateMessage);
       if (!validateResult.success) {
-        return BaseService.sendFailedResponse(validateResult.data);
+        return BaseService.sendFailedResponse({error: validateResult.data});
       }
 
       const userExists = await UserModel.findOne({email: post.email})
@@ -75,7 +75,7 @@ class UserService extends BaseService {
       if(empty(userExists)){
         return BaseService.sendFailedResponse({error: 'User does not exist. Please signup!'})
       }
-      const token = await newUser.generateToken(process.env.TOKEN_SECRET || 'enter_your_key!.')
+      const token = await userExists.generateToken(process.env.TOKEN_SECRET || 'enter_your_key!.')
 
 
       return BaseService.sendSuccessResponse({
@@ -88,9 +88,9 @@ class UserService extends BaseService {
         return BaseService.sendFailedResponse({error: this.server_error_message})
     }
   }
-  async verifyEmail(req, res) {
+  async verifyEmail(req) {
     try {
-      const post = req.query;
+      const post = req.body;
 
       const validateRule = {
         email: "email|required",
@@ -103,13 +103,17 @@ class UserService extends BaseService {
 
       const validateResult = validateData(post, validateRule, validateMessage);
       if (!validateResult.success) {
-        return BaseService.sendFailedResponse(validateResult.data);
+        return BaseService.sendFailedResponse({error: validateResult.data});
       }
 
       const userExists = await UserModel.findOne({email: post.email})
 
       if(empty(userExists)){
         return BaseService.sendFailedResponse({error: 'User does not exist. Please try again later.!'})
+      }
+
+      if(userExists.is_verified){
+        return BaseService.sendFailedResponse({error: 'You are already verified. Please login'})
       }
 
       userExists.is_verified = true
@@ -137,10 +141,18 @@ class UserService extends BaseService {
         //sign up
         const newUser = new UserModel(post)
         await newUser.save()
+
+        const emailOption = {
+            to: post.email,
+            from: "App Ser",
+            subject: "Registration Successful",
+            html: await buildEmailTemplate("verify_email.ejs", newUser),
+          };
+          await sendMail(emailOption, res);
         return BaseService.sendSuccessResponse({message: 'Registration successful. Please login!', google_type: 'register'})
       }else{
         //sign in
-        const token = await newUser.generateToken(process.env.TOKEN_SECRET || 'enter_your_key!.')
+        const token = await userExists.generateToken(process.env.TOKEN_SECRET || 'enter_your_key!.')
         return BaseService.sendSuccessResponse({message: token, google_type: 'login'})
     }
 

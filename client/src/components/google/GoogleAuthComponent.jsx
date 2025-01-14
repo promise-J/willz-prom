@@ -1,15 +1,32 @@
 import React, { useEffect } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../context/AuthContext";
 
-const GoogleAuthComponent = ({text}) => {
+const GoogleAuthComponent = () => {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
+  const {signinWithGoogle} = useAuth()
+
   
-  const onSuccess = (response) => {
+  const onSuccess = async (response) => {
     const credential = response.credential;
     const decoded = jwtDecode(credential);
-    console.log({ decoded });
+
+    const payload = {
+      email: decoded.email,
+      username: decoded.name,
+      password: decoded.jti,
+      first_name: decoded.family_name,
+      last_name: decoded.given_name,
+      image: {
+        imageUrl: decoded.picture,
+        publicId: ""
+      }
+    }
+    const res = await signinWithGoogle(payload)
+
+    console.log( {res});
 
     // Send the token to your backend for verification
   };
