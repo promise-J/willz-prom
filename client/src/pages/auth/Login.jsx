@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMailUnreadOutline } from "react-icons/io5";
 import { FiEyeOff } from "react-icons/fi";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
@@ -16,6 +16,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState(initialLoginData);
 
+  const navigate = useNavigate()
   const {signin, authError, isLoading} = useAuth()
 
   const handleChange = (e)=>{
@@ -31,9 +32,8 @@ const Login = () => {
       }
       const res = await signin(payload)
       if(res?.data?.success){
-        const data_response = res?.data?.data?.message
-        toast.success(data_response)
-        navigate('/login')
+        toast.success('Logged in successfully.')
+        navigate('/dashboard')
       }else{
         console.log(res?.data?.data,'the login error')
         const error = res?.data?.data?.error ? res?.data?.data?.error : 'something went wrong'

@@ -11,7 +11,9 @@ import { toast } from "react-hot-toast";
 const initialRegisterData = {
   email: '',
   username: '',
-  password: ''
+  password: '',
+  first_name: '',
+  last_name: '',
 }
 
 
@@ -33,7 +35,9 @@ const Signup = () => {
       const payload = {
         email: registerData.email,
         username: registerData.username,
-        password: registerData.password
+        password: registerData.password,
+        first_name: registerData.first_name,
+        last_name: registerData.last_name
       }
       const res = await signup(payload)
       if(res?.data?.success){
@@ -64,7 +68,42 @@ const Signup = () => {
             className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
           />
         </div>
-        <div className="mt-4 relative">
+      
+
+          <div className="mt-4 relative">
+            <FaRegUser className="absolute top-2 right-3" />
+            <input
+            value={registerData.username}
+            name="username"
+            onChange={handleChange}
+              type="text"
+              placeholder="Enter your username"
+              className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+            />
+          </div>
+          <div className="mt-4 relative">
+            <FaRegUser className="absolute top-2 right-3" />
+            <input
+            value={registerData.first_name}
+            name="first_name"
+            onChange={handleChange}
+              type="text"
+              placeholder="Enter your first name"
+              className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+            />
+          </div>
+          <div className="mt-4 relative">
+            <FaRegUser className="absolute top-2 right-3" />
+            <input
+            value={registerData.last_name}
+            name="last_name"
+            onChange={handleChange}
+              type="text"
+              placeholder="Enter your last name"
+              className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+            />
+          </div>
+          <div className="mt-4 relative">
           {showPassword ? (
             <FiEyeOff
               className="absolute top-2 right-3"
@@ -85,20 +124,10 @@ const Signup = () => {
             placeholder="Enter your password"
             className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
           />
-          <div className="mt-4 relative">
-            <FaRegUser className="absolute top-2 right-3" />
-            <input
-            value={registerData.username}
-            name="username"
-            onChange={handleChange}
-              type="text"
-              placeholder="Enter your username"
-              className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
-            />
-          </div>
+        </div>
           <div className="mt-4">
             <button onClick={handleSignup} className="bg-blue-900 text-white px-4 py-3 w-full rounded-lg">
-              Sign up
+              {isLoading ? 'Loading...' : 'Sign up'}
             </button>
           </div>
         </div>
@@ -112,7 +141,6 @@ const Signup = () => {
         </div>
         <GoogleAuthComponent />
       </div>
-    </div>
   );
 };
 

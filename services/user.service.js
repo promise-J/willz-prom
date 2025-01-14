@@ -13,6 +13,8 @@ class UserService extends BaseService {
         email: "email|required",
         password: "string|required|min:8",
         username: "string|required",
+        first_name: "string|required",
+        last_name: "string|required",
       };
       const validateMessage = {
         required: ":attribute is required",
@@ -34,11 +36,18 @@ class UserService extends BaseService {
       let newUser = new UserModel(post);
       newUser = await newUser.save();
 
+      const emailData = {
+        link: this.base_url + `verify-email?email=${newUser.email}`,
+        email: newUser.email,
+        first_name: newUser.first_name,
+        last_name: newUser.last_name,
+      }
+
       const emailOption = {
         to: post.email,
         from: "App Ser",
         subject: "Registration Successful",
-        html: await buildEmailTemplate("verify_email.ejs", newUser),
+        html: await buildEmailTemplate("verify_email.ejs", emailData),
       };
       await sendMail(emailOption, res);
       return BaseService.sendSuccessResponse({
@@ -75,6 +84,17 @@ class UserService extends BaseService {
       if(empty(userExists)){
         return BaseService.sendFailedResponse({error: 'User does not exist. Please signup!'})
       }
+
+      if (!(await userExists.comparePassword(post.password))) {
+        return BaseService.sendFailedResponse({
+          error: "Wrong email or password",
+        });
+      }
+
+    //   if(userExists.is_verified == false){
+    //     return BaseService.sendFailedResponse({error: 'Please verify your account'})
+    //   }
+
       const token = await userExists.generateToken(process.env.TOKEN_SECRET || 'enter_your_key!.')
 
 
@@ -130,7 +150,6 @@ class UserService extends BaseService {
         return BaseService.sendFailedResponse({error: this.server_error_message})
     }
   }
-
   async googleAuthEmail(req, res) {
     try {
       const post = req.body;
@@ -142,16 +161,27 @@ class UserService extends BaseService {
         const newUser = new UserModel(post)
         await newUser.save()
 
-        const emailOption = {
+        const emailData = {
+            link: this.base_url + `verify-email?email=${newUser.email}`,
+            email: newUser.email,
+            first_name: newUser.first_name,
+            last_name: newUser.last_name,
+          }
+
+    
+          const emailOption = {
             to: post.email,
             from: "App Ser",
             subject: "Registration Successful",
-            html: await buildEmailTemplate("verify_email.ejs", newUser),
+            html: await buildEmailTemplate("verify_email.ejs", emailData),
           };
           await sendMail(emailOption, res);
         return BaseService.sendSuccessResponse({message: 'Registration successful. Please login!', google_type: 'register'})
       }else{
         //sign in
+        // if(userExists.is_verified == false){
+        //     return BaseService.sendFailedResponse({error: 'Please verify your account'})
+        // }
         const token = await userExists.generateToken(process.env.TOKEN_SECRET || 'enter_your_key!.')
         return BaseService.sendSuccessResponse({message: token, google_type: 'login'})
     }
@@ -161,7 +191,7 @@ class UserService extends BaseService {
         return BaseService.sendFailedResponse({error: this.server_error_message})
     }
   }
-  async getUser(req, res) {
+  async getUser(req) {
     try {
       const user_id = req.user.id;
 

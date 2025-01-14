@@ -32,6 +32,9 @@ export const AuthProvider = ({ children }) => {
   const signin = async (body) => {
     setIsLoading(true);
     const res = await api.post("users/login", body);
+    const token = res?.data.data?.message
+    console.log(token,'the login token')
+    localStorage.setItem('app-ser-token', token)
     setIsLoading(false);
     return res;
   };
@@ -39,6 +42,10 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     const res = await api.post("users/google-auth", body);
     setIsLoading(false);
+    if(res?.data?.data?.google_type == 'login'){
+      const token = res?.data.data?.message
+      localStorage.setItem('app-ser-token', token)
+    }
     return res;
   };
   const verifyEmail = async (body) => {
@@ -69,17 +76,17 @@ export const AuthProvider = ({ children }) => {
     try {
       if (token) {
         const res = await api.get("users/get-account");
-        console.log({ res: res?.data });
         if (res?.data?.success == true) {
-          setUserInfo(res?.data?.data);
+          setUserInfo(res?.data?.data?.message);
         } else if (res?.data?.message == "jwt_expired") {
           localStorage.removeItem("app-ser-token");
           toast.error("Login has expired, kindly log in again!");
           navigate("/login");
-        } else {
-          localStorage.removeItem("app-ser-token");
-          navigate("/login");
         }
+        //  else {
+        //   localStorage.removeItem("app-ser-token");
+        //   navigate("/login");
+        // }
       }
     } catch (error) {
       localStorage.removeItem("app-ser-token");

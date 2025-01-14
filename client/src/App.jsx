@@ -11,6 +11,8 @@ import { useModal } from "./context/ModalContext";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import VerifyEmail from "./pages/auth/VerifyEmail";
+import Dashboard from "./pages/dashboard/Dashboard";
+import DashboardLayout from "./layout/DashboardLayout";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -60,6 +62,10 @@ function App() {
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+      </Route>
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        {/* All static pages (homepage, about, contact and disclaimer routes here) */}
+        <Route index element={<Dashboard />} />
       </Route>
       {/* <Route path="/auth" element={<AuthLayout />}>
         <Route path="signin-email" element={<LoginWithEmail />} />

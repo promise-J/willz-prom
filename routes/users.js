@@ -20,7 +20,7 @@ router.post(ROUTE_GOOGLE_AUTH, (req, res)=>{
     const userController = new UserController()
     return userController.googleAuthEmail(req, res)
 })
-router.post(ROUTE_GET_ACCOUNT, [auth], (req, res)=>{
+router.get(ROUTE_GET_ACCOUNT, [auth], (req, res)=>{
     const userController = new UserController()
     return userController.getUser(req, res)
 })

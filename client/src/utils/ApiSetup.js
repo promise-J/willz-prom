@@ -4,7 +4,7 @@ import axios from 'axios';
 const ApiSetup = () => {
   // const baseUrl = "http://localhost:5000/api/"
   const baseUrl = import.meta.env.VITE_BASE_URL
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("app-ser-token");
   
 
   const fetcherApi = axios.create({

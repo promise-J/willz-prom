@@ -2,33 +2,44 @@ import React, { useEffect } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const GoogleAuthComponent = () => {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  const navigate = useNavigate()
 
   const {signinWithGoogle} = useAuth()
 
   
   const onSuccess = async (response) => {
+    try{
+
     const credential = response.credential;
     const decoded = jwtDecode(credential);
 
     const payload = {
-      email: decoded.email,
-      username: decoded.name,
-      password: decoded.jti,
-      first_name: decoded.family_name,
-      last_name: decoded.given_name,
+      email: decoded?.email,
+      username: decoded?.name,
+      password: decoded?.jti,
+      first_name: decoded?.family_name,
+      last_name: decoded?.given_name,
       image: {
-        imageUrl: decoded.picture,
+        imageUrl: decoded?.picture,
         publicId: ""
       }
     }
     const res = await signinWithGoogle(payload)
-
-    console.log( {res});
-
-    // Send the token to your backend for verification
+    if(res?.data?.data.google_type == 'register'){
+      toast.success('You have sign up successfully')
+      return navigate('/login')
+    }else if(res?.data?.data?.google_type == 'login'){
+      toast.success('You have logged in successfully')
+      navigate('/dashboard')
+    }
+    }catch(error){
+    console.log(error);
+    }
   };
 
   const onFailure = (error) => {

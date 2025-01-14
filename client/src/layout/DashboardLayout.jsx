@@ -1,18 +1,15 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const DefaultLayout = () => {
+const DashboardLayout = () => {
   const token_key = localStorage.getItem("app-ser-token");
-  const {pathname} = useLocation()
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (token_key) {
-      if(pathname == '/login' || pathname == '/sign-up'){
-        navigate("/dashboard");
-      }
+    if (!token_key) {
+      navigate("/login");
     }
   }, [navigate, token_key]);
 
@@ -27,4 +24,4 @@ const DefaultLayout = () => {
   );
 };
 
-export default DefaultLayout;
+export default DashboardLayout;
