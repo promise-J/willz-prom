@@ -11,7 +11,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
   };
   return (
     <div className="h-full absolute w-full z-10">
-      <div className="relative bg-gray-100 h-full w-full pt-20 ps-10">
+      <div className="relative bg-gray-100 h-full w-full pt-20">
         <MdClear
           onClick={() => setShowSidebar(false)}
           size={30}
