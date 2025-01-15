@@ -17,9 +17,9 @@ const HomeSidebar = ({ setShowSidebar }) => {
           size={30}
           fontWeight={600}
           cursor="pointer"
-          className="absolute right-6 top-10"
+          className="absolute right-6 top-4"
         />
-        <div className="mt-4 flex items-center gap-5 mb-10">
+        <div className="mt-4 flex items-center px-3 gap-5 mb-10">
           <img
             className="w-[40px] h-[40px] rounded-full"
             src="/images/app-sar.jpg"
@@ -43,7 +43,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
           </Link>
         </div>
         {userInfo ? (
-          <div className="text-2xl mt-10 rounded-lg py-2 flex justify-center gap-8">
+          <div className="text-2xl px-3 mt-10 rounded-lg py-2 flex justify-center gap-8">
             <button
               onClick={() => {
                 logOut()
@@ -55,7 +55,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
             </button>
           </div>
         ) : (
-          <div className="text-2xl mt-10 rounded-lg py-2 flex justify-between gap-8">
+          <div className="text-2xl mt-10 rounded-lg py-3 px-2 flex justify-between gap-8">
             <Link onClick={handleClickItem} className="w-full" to="/login">
               <button className="border border-blue-900 py-2 w-full">
                 Login
