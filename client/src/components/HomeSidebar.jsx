@@ -11,7 +11,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
   };
   return (
     <div className="h-[100vh] fixed w-full z-10 overflow-hidden">
-      <div className="relative bg-gray-100 h-full w-full pt-10">
+      <div className="relative bg-gray-100 h-full w-full pt-4">
         <MdClear
           onClick={() => setShowSidebar(false)}
           size={30}
@@ -43,7 +43,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
           </Link>
         </div>
         {userInfo ? (
-          <div className="text-2xl px-3 mt-10 rounded-lg py-2 flex justify-center gap-8">
+          <div className="text-2xl px-5 mt-10 rounded-lg py-2 flex justify-center gap-4">
             <button
               onClick={() => {
                 logOut()
