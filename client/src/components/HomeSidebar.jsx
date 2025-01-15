@@ -11,7 +11,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
   };
   return (
     <div className="h-[100vh] fixed w-full z-10 overflow-hidden">
-      <div className="relative bg-gray-100 h-full w-full pt-20">
+      <div className="relative bg-gray-100 h-full w-full pt-10">
         <MdClear
           onClick={() => setShowSidebar(false)}
           size={30}
@@ -19,7 +19,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
           cursor="pointer"
           className="absolute right-6 top-4"
         />
-        <div className="mt-4 flex items-center px-3 gap-5 mb-10">
+        <div className="mt-3 flex items-center px-3 gap-5 mb-10">
           <img
             className="w-[40px] h-[40px] rounded-full"
             src="/images/app-sar.jpg"
