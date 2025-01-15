@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import HomeSidebar from "../components/HomeSidebar";
 
 const DashboardLayout = () => {
+  const [showSidebar, setShowSidebar] = useState(false)
+
   const token_key = localStorage.getItem("app-ser-token");
   const navigate = useNavigate();
 
@@ -15,7 +18,8 @@ const DashboardLayout = () => {
 
   return (
     <div className="">
-      <Navbar />
+      {showSidebar && <HomeSidebar setShowSidebar={setShowSidebar} />}
+      <Navbar setShowSidebar={setShowSidebar} />
       <main>
         <Outlet />
       </main>

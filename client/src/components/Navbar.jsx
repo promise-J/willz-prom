@@ -2,7 +2,7 @@ import React from "react";
 import { IoMdMenu } from "react-icons/io";import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const Navbar = () => {
+const Navbar = ({setShowSidebar}) => {
   const { logOut, token } = useAuth();
   return (
     <div className="border-b-2 h-[90px]">
@@ -16,7 +16,7 @@ const Navbar = () => {
               Sign up
             </Link>
           )}
-          <IoMdMenu cursor={"pointer"} size={25} />
+          <IoMdMenu className="md:hidden" onClick={()=> setShowSidebar(true)} cursor={"pointer"} size={25} />
         </div>
       </div>
     </div>
