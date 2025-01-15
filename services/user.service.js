@@ -6,6 +6,7 @@ const validateData = require("../util/validate");
 
 class UserService extends BaseService {
   async createUser(req, res) {
+
     try {
       const post = req.body;
 
@@ -42,6 +43,7 @@ class UserService extends BaseService {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
       }
+
 
       const emailOption = {
         to: post.email,

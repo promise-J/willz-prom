@@ -45,6 +45,7 @@ const Signup = () => {
         toast.success(data_response)
         navigate('/login')
       }else{
+        console.log(res?.data?.data)
         const error = res?.data?.data?.error ? res?.data?.data?.error : 'something went wrong'
         toast.error(error)
       }
