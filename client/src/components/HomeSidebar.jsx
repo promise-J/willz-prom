@@ -10,7 +10,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
     setShowSidebar(false);
   };
   return (
-    <div className="h-[100vh] absolute w-full z-10">
+    <div className="h-[100vh] fixed w-full z-10 overflow-hidden">
       <div className="relative bg-gray-100 h-full w-full pt-20">
         <MdClear
           onClick={() => setShowSidebar(false)}
