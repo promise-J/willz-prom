@@ -10,7 +10,15 @@ const Navbar = ({setShowSidebar}) => {
         <img className="w-[80px] h-[50px]" src="/images/app-sar.jpg" />
         <div className="flex items-center h-full gap-12">
           {token ? (
-            <button onClick={logOut}>Logout</button>
+            <button
+            onClick={() => {
+              logOut()
+              handleClickItem;
+            }}
+            className="bg-blue-900 py-1 px-2 rounded-lg text-white w-full"
+          >
+            Logout
+          </button>
           ) : (
             <Link className="text-blue-900" to="/sign-up">
               Sign up

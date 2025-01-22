@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import HomeSidebar from "../components/HomeSidebar";
+import Sidebar from "../components/Sidebar";
+import { DashboardSidebar } from "../components/dashboard/DashboardSidebar";
 
 const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -18,12 +19,12 @@ const DashboardLayout = () => {
 
   return (
     <div className="">
-      {showSidebar && <HomeSidebar setShowSidebar={setShowSidebar} />}
-      <Navbar setShowSidebar={setShowSidebar} />
-      <main>
+      {showSidebar && <Sidebar setShowSidebar={setShowSidebar} />}
+      {/* <Navbar setShowSidebar={setShowSidebar} /> */}
+      <main className="flex h-[100vh]">
+        <DashboardSidebar />
         <Outlet />
       </main>
-      <Footer />
     </div>
   );
 };

@@ -13,6 +13,14 @@ import Login from "./pages/auth/Login";
 import VerifyEmail from "./pages/auth/VerifyEmail";
 import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardLayout from "./layout/DashboardLayout";
+import AirtimeTopup from "./pages/dashboard/AirtimeTopup";
+import FundAccount from "./pages/dashboard/FundWallet";
+import DataTopUp from "./pages/dashboard/DataTopUp";
+import ElectricityBill from "./pages/dashboard/ElectricityBill";
+import TvSubcription from "./pages/dashboard/TvSubscription";
+import FoodPaddi from "./pages/dashboard/FoodPaddi";
+import HealthPaddi from "./pages/dashboard/HealthPaddi";
+import StudioPaddi from "./pages/dashboard/StudioPaddi";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -59,13 +67,21 @@ function App() {
       <Route path="/" element={<DefaultLayout />}>
         {/* All static pages (homepage, about, contact and disclaimer routes here) */}
         <Route index element={<Homepage />} />
-        <Route path="/sign-up" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="sign-up" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+        <Route path="verify-email" element={<VerifyEmail />} />
       </Route>
       <Route path="/dashboard" element={<DashboardLayout />}>
         {/* All static pages (homepage, about, contact and disclaimer routes here) */}
         <Route index element={<Dashboard />} />
+        <Route path="airtime-top-up" element={<AirtimeTopup />} />
+        <Route path="fund-wallet" element={<FundAccount />} />
+        <Route path="data-top-up" element={<DataTopUp />} />
+        <Route path="electricity-bill" element={<ElectricityBill />} />
+        <Route path="tv-subscription" element={<TvSubcription />} />
+        <Route path="food-paddi" element={<FoodPaddi />} />
+        <Route path="health-paddi" element={<HealthPaddi />} />
+        <Route path="studio-paddi" element={<StudioPaddi />} />
       </Route>
       {/* <Route path="/auth" element={<AuthLayout />}>
         <Route path="signin-email" element={<LoginWithEmail />} />

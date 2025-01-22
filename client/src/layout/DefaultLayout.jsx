@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import HomeSidebar from "../components/HomeSidebar";
+import Sidebar from "../components/Sidebar";
 
 const DefaultLayout = () => {
   const token_key = localStorage.getItem("app-ser-token");
@@ -20,7 +20,7 @@ const DefaultLayout = () => {
 
   return (
     <div className="">
-      {showSidebar && <HomeSidebar setShowSidebar={setShowSidebar} />}
+      {showSidebar && <Sidebar setShowSidebar={setShowSidebar} />}
       <Navbar setShowSidebar={setShowSidebar} />
       <main>
         <Outlet />
