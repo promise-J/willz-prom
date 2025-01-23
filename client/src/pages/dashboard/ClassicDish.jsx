@@ -1,8 +1,12 @@
 import React from 'react'
+import Container from '../../components/Container'
 
 const ClassicDish = () => {
   return (
-    <div>ClassicDish</div>
+    <Container>
+      <h1>Classic dish</h1>
+    </Container>
+      
   )
 }
 

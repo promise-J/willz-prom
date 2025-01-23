@@ -1,8 +1,11 @@
 import React from 'react'
+import Container from '../../components/Container'
 
 const LocalDish = () => {
   return (
-    <div>LocalDish</div>
+    <Container>
+      <h1>Local dish</h1>
+    </Container>
   )
 }
 

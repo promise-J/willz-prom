@@ -43,6 +43,7 @@ const DashboardSidebarItem = ({
           {listData?.map((list) => (
             <div
              key={list.title}
+             onClick={handleCloseSidebar}
               className={`flex ${pathname == list.link && "bg-blue-400 bg-opacity-30"} items-center hover:bg-blue-400 hover:bg-opacity-30 cursor-pointer rounded-sm ps-10 my-1 relative`}
             >
               <Link to={list.link} className="text-white">{list.title}</Link>
