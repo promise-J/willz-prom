@@ -21,6 +21,9 @@ import TvSubcription from "./pages/dashboard/TvSubscription";
 import FoodPaddi from "./pages/dashboard/FoodPaddi";
 import HealthPaddi from "./pages/dashboard/HealthPaddi";
 import StudioPaddi from "./pages/dashboard/StudioPaddi";
+import LocalDish from "./pages/dashboard/LocalDish";
+import ClassicDish from "./pages/dashboard/ClassicDish";
+import ConventionalDish from "./pages/dashboard/ConventionalDish";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -82,6 +85,9 @@ function App() {
         <Route path="food-paddi" element={<FoodPaddi />} />
         <Route path="health-paddi" element={<HealthPaddi />} />
         <Route path="studio-paddi" element={<StudioPaddi />} />
+        <Route path="local-dish" element={<LocalDish />} />
+        <Route path="classic-dish" element={<ClassicDish />} />
+        <Route path="conventional-dish" element={<ConventionalDish />} />
       </Route>
       {/* <Route path="/auth" element={<AuthLayout />}>
         <Route path="signin-email" element={<LoginWithEmail />} />

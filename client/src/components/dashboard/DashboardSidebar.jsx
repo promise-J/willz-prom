@@ -7,10 +7,13 @@ import { FaTv } from "react-icons/fa";
 import { PiBowlFood } from "react-icons/pi";
 import { GiHealthPotion } from "react-icons/gi";
 import { MdVideoCameraFront } from "react-icons/md";
-import { Link, useOutletContext } from "react-router-dom";
+import { IoIosArrowDown, IoMdArrowUp } from "react-icons/io";
+import { Link, useLocation, useOutletContext } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import DashboardSidebarItem from "./DashboardSidebarItem";
 
 export const DashboardSidebar = ({ showSidebar, setShowSidebar }) => {
+    const {pathname} = useLocation()
   const { userInfo } = useAuth();
   const handleCloseSidebar = ()=>{
     setShowSidebar(false)
@@ -18,7 +21,7 @@ export const DashboardSidebar = ({ showSidebar, setShowSidebar }) => {
 
   return (
     <div
-      className={`h-[100vh] lg:block hidden w-[250px] transition-all duration-300 ease-in-out border border-r-1 bg-blue-900`}
+      className={`h-[100vh] min-w-[250px] transition-all duration-300 ease-in-out bg-blue-900`}
     >
       <div className="h-full overflow-auto">
         <div className="py-4 flex justify-between pe-5">
@@ -41,59 +44,54 @@ export const DashboardSidebar = ({ showSidebar, setShowSidebar }) => {
           )}
         </div>
         <div className="px-2 mt-10">
-          <Link onClick={handleCloseSidebar} to="/dashboard">
-            <div className="flex items-center bg-blue-400 hover:bg-blue-400 hover:bg-opacity-30 bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
-              <MdHome color="white" size={24} />
-              <span className="ms-2 text-white">Dashboard</span>
-            </div>
-          </Link>
-          <Link onClick={handleCloseSidebar} to="/dashboard/fund-wallet">
-            <div className="flex items-center hover:bg-blue-400 hover:bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
-              <MdWallet color="white" size={24} />
-              <span className="ms-2 text-white">Fund Wallet</span>
-            </div>
-          </Link>
+          <DashboardSidebarItem
+            title='Dashboard'
+            icon={<MdHome color='white' size={24} />}
+            path='/dashboard'
+           />
+          <DashboardSidebarItem
+            title='Fund Wallet'
+            icon={<MdWallet color='white' size={24} />}
+            path='/dashboard/fund-wallet'
+           />
           <div className="w-[100%] bg-gray-400 h-[1px] my-4"></div>
-          <Link onClick={handleCloseSidebar} to="/dashboard/airtime-top-up">
-            <div className="flex items-center bg-blue-400 hover:bg-blue-400 hover:bg-opacity-30 bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
-              <LuSquareChartGantt color="white" size={24} />
-              <span className="ms-2 text-white">Airtime Topup</span>
-            </div>
-          </Link>
-          <Link onClick={handleCloseSidebar} to="/dashboard/data-top-up">
-            <div className="flex items-center hover:bg-blue-400 hover:bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
-              <BsGlobe color="white" size={24} />
-              <span className="ms-2 text-white">Data Topup</span>
-            </div>
-          </Link>
+          <DashboardSidebarItem
+            title='Airtime Topup'
+            icon={<LuSquareChartGantt color='white' size={24} />}
+            path='/dashboard/airtime-top-up'
+           />
+          <DashboardSidebarItem
+            title='Data Topup'
+            icon={<BsGlobe color='white' size={24} />}
+            path='/dashboard/data-top-up'
+           />
           <div className="w-[100%] bg-gray-400 h-[1px] my-4"></div>
-          <Link onClick={handleCloseSidebar} to="/dashboard/electricity-bill">
-            <div className="flex items-center bg-blue-400 hover:bg-blue-400 hover:bg-opacity-30 bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
-              <MdLightbulbOutline color="white" size={24} />
-              <span className="ms-2 text-white">Pay Electricity</span>
-            </div>
-          </Link>
-          <Link onClick={handleCloseSidebar} to="/dashboard/tv-subscription">
-            <div className="flex items-center hover:bg-blue-400 hover:bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
-              <FaTv color="white" size={24} />
-              <span className="ms-2 text-white">TV Subscription</span>
-            </div>
-          </Link>
+          <DashboardSidebarItem
+            title='Pay Electricity'
+            icon={<MdLightbulbOutline color='white' size={24} />}
+            path='/dashboard/electricity-bill'
+           />
+          <DashboardSidebarItem
+            title='TV Subscription'
+            icon={<FaTv color='white' size={24} />}
+            path='/dashboard/tv-subscription'
+           />
           <div className="w-[100%] bg-gray-400 h-[1px] my-4"></div>
-          <Link onClick={handleCloseSidebar} to="/dashboard/food-paddi">
-            <div className="flex items-center bg-blue-400 hover:bg-blue-400 hover:bg-opacity-30 bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
-              <PiBowlFood color="white" size={24} />
-              <span className="ms-2 text-white">Food Paddi</span>
-            </div>
-          </Link>
+          <DashboardSidebarItem
+            title='Food Paddi'
+            icon={<PiBowlFood color='white' size={24} />}
+            path='/dashboard/food-paddi'
+            isParent
+            listData={[{title: 'Local dish', link: '/dashboard/local-dish'}, {title: 'Classic dish', link: '/dashboard/classic-dish'}, {title: 'Conventional dish', link: '/dashboard/conventional-dish'}]}
+           />
           <Link onClick={handleCloseSidebar} to="/dashboard/health-paddi">
-            <div className="flex items-center hover:bg-blue-400 hover:bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
+          <div className={`flex items-center ${pathname == '/dashboard/health-paddi' && 'bg-blue-400 bg-opacity-30'} hover:bg-blue-400 hover:bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2`}>
               <GiHealthPotion color="white" size={24} />
               <span className="ms-2 text-white">Health Paddi</span>
             </div>
           </Link>
           <Link onClick={handleCloseSidebar} to="/dashboard/studio-paddi">
-            <div className="flex items-center hover:bg-blue-400 hover:bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2">
+          <div className={`flex items-center ${pathname == '/dashboard/studio-paddi' && 'bg-blue-400 bg-opacity-30'} hover:bg-blue-400 hover:bg-opacity-30 py-2 cursor-pointer rounded-sm ps-3 my-2`}>
               <MdVideoCameraFront color="white" size={24} />
               <span className="ms-2 text-white">Studio Paddi</span>
             </div>
