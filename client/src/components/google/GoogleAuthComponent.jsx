@@ -7,38 +7,48 @@ import { toast } from "react-hot-toast";
 
 const GoogleAuthComponent = () => {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const {signinWithGoogle} = useAuth()
+  const { signinWithGoogle } = useAuth();
 
-  
   const onSuccess = async (response) => {
-    try{
+    try {
+      const credential = response.credential;
+      const decoded = jwtDecode(credential);
+      console.log({response})
 
-    const credential = response.credential;
-    const decoded = jwtDecode(credential);
+      const userProfile = await fetch(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer ${credential}`, // Add your valid OAuth token here
+          },
+        }
+      );
+      const userData = await userProfile.json();
+      const profileImageUrl = userData.picture;
 
-    const payload = {
-      email: decoded?.email,
-      username: decoded?.name,
-      password: decoded?.jti,
-      first_name: decoded?.family_name,
-      last_name: decoded?.given_name,
-      image: {
-        imageUrl: decoded?.picture,
-        publicId: ""
+      const payload = {
+        email: decoded?.email,
+        username: decoded?.name,
+        password: decoded?.jti,
+        first_name: decoded?.family_name,
+        last_name: decoded?.given_name,
+        image: {
+          imageUrl: decoded?.picture,
+          publicId: "",
+        },
+      };
+      const res = await signinWithGoogle(payload);
+      if (res?.data?.data.google_type == "register") {
+        toast.success("You have sign up successfully");
+        return navigate("/login");
+      } else if (res?.data?.data?.google_type == "login") {
+        toast.success("You have logged in successfully");
+        navigate("/dashboard");
       }
-    }
-    const res = await signinWithGoogle(payload)
-    if(res?.data?.data.google_type == 'register'){
-      toast.success('You have sign up successfully')
-      return navigate('/login')
-    }else if(res?.data?.data?.google_type == 'login'){
-      toast.success('You have logged in successfully')
-      navigate('/dashboard')
-    }
-    }catch(error){
-    console.log(error);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -56,8 +66,7 @@ const GoogleAuthComponent = () => {
           theme="filled_blue"
           shape="pill" // "square" or "pill"
           size="large" // "large", "medium", "small"
-          width={'100%'}
-  
+          width={"100%"}
         />
       </div>
     </GoogleOAuthProvider>

@@ -40,7 +40,7 @@ const Dashboard = () => {
           <span className='bg-black text-[12px] text-white py-1 px-2 rounded-lg cursor-pointer'>Fund Now</span>
         </div>
         <h2 className='ps-[35px] py-3'>Overview</h2>
-        <div className='flex gap-10 px-[35px] py-4'>
+        <div className='flex gap-10 px-[35px] py-4 md:flex-row flex-col'>
           <div className='flex-1 bg-gray-100 hover:bg-blue-50 cursor-pointer p-5 flex flex-col gap-4'>
             <h2 className='text-lg'>Wallet</h2>
             <p className='text-[30px]'>#3,000</p>

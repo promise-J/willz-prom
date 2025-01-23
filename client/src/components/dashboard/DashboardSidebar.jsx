@@ -7,12 +7,13 @@ import { FaTv } from "react-icons/fa";
 import { PiBowlFood } from "react-icons/pi";
 import { GiHealthPotion } from "react-icons/gi";
 import { MdVideoCameraFront } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
-export const DashboardSidebar = () => {
+export const DashboardSidebar = ({showSidebar}) => {
+    
   return (
-    <div className="h-full w-[250px] border border-r-1 bg-blue-900">
-      <div className="h-full">
+    <div className={`h-[100vh] lg:w-[250px] ${showSidebar ? '!w-[80vw]' : '!w-0'} transition-all duration-300 ease-in-out border border-r-1 bg-blue-900 lg:block absolute md:static z-10`}>
+      <div className="h-full overflow-auto">
         <div className="py-4">
           <img
             src="/images/app-sar.jpg"
