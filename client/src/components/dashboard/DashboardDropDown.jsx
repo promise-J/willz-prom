@@ -1,41 +1,41 @@
-import React from "react";
-import { MdHome, MdWallet } from "react-icons/md";
-import { LuSquareChartGantt } from "react-icons/lu";
-import { BsGlobe } from "react-icons/bs";
-import { MdLightbulbOutline } from "react-icons/md";
-import { FaTv } from "react-icons/fa";
-import { PiBowlFood } from "react-icons/pi";
-import { GiHealthPotion } from "react-icons/gi";
-import { MdVideoCameraFront } from "react-icons/md";
-import { Link, useOutletContext } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import React from 'react'
+import { IoMdClose } from "react-icons/io";
+import { PiBowlFood } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { MdHome, MdLightbulbOutline, MdVideoCameraFront, MdWallet } from 'react-icons/md';
+import { LuSquareChartGantt } from 'react-icons/lu';
+import { BsGlobe } from 'react-icons/bs';
+import { FaTv } from 'react-icons/fa';
+import { GiHealthPotion } from 'react-icons/gi';
 
-export const DashboardSidebar = ({ showSidebar, setShowSidebar }) => {
-  const { userInfo } = useAuth();
-  const handleCloseSidebar = ()=>{
-    setShowSidebar(false)
-  }
+
+const DashboardDropDown = ({setShowSidebar, showSidebar}) => {
+    const {userInfo} = useAuth()
+
+    const handleCloseSidebar = ()=>{
+        setShowSidebar(false)
+      }
 
   return (
-    <div
-      className={`h-[100vh] lg:block hidden w-[250px] transition-all duration-300 ease-in-out border border-r-1 bg-blue-900`}
-    >
-      <div className="h-full overflow-auto">
-        <div className="py-4 flex justify-between pe-5">
+    <div className={`${showSidebar ? 'w-full' : 'w-0'} h-[100vh] z-10 fixed top-0 left-0`}>
+        <div className='h-full overflow-auto bg-blue-900'>
+            <IoMdClose onClick={handleCloseSidebar} color='white' size={20} cursor='pointer' className='absolute right-5 top-5 font-bold' />
+            <div className="py-4 flex justify-between pe-5">
           <img
             src="/images/app-sar.jpg"
             className="h-[35px] w-[100px] ms-[30px]"
           />
           {userInfo?.image?.imageUrl ? (
             <img
-              className="h-8 rounded-full border-2 border-gray-300 cursor-pointer"
+              className="h-8 rounded-full border-2 border-gray-300 cursor-pointer me-12"
               alt="profile image"
               referrerPolicy="no-referrer"
               src="https://lh3.googleusercontent.com/a/ACg8ocKEiv_NYOP4ulsGCZBsLhTFMWZZqww9v08BUY_bfEHp81RlfNsN"
             />
           ) : (
             <img
-              className="h-8 rounded-full border-2 border-gray-300 cursor-pointer"
+              className="h-8 rounded-full border-2 border-gray-300 cursor-pointer me-12"
               src="/images/profileImage.png"
             />
           )}
@@ -100,7 +100,9 @@ export const DashboardSidebar = ({ showSidebar, setShowSidebar }) => {
           </Link>
           <div className="w-[100%] bg-gray-400 h-[1px] my-4"></div>
         </div>
-      </div>
+        </div>
     </div>
-  );
-};
+  )
+}
+
+export default DashboardDropDown
