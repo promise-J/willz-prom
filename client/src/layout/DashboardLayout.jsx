@@ -21,7 +21,7 @@ const DashboardLayout = () => {
     <div className="">
       {/* <Navbar setShowSidebar={setShowSidebar} /> */}
       <main className="flex h-[100vh]">
-        <DashboardSidebar showSidebar={showSidebar} />
+        <DashboardSidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <Outlet context={{showSidebar ,setShowSidebar}}  />
       </main>
     </div>
