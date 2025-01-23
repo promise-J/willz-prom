@@ -4,6 +4,7 @@ import DashboardHeader from '../../components/dashboard/DashboardHeader'
 import { dashboardData } from '../../components/utils/constants'
 import Pagination from '../../components/utils/Pagination'
 import Container from '../../components/Container'
+import DashboardTable from '../../components/utils/DashboardTable'
 
 const Dashboard = () => {
   const {userInfo} = useAuth()
@@ -38,7 +39,6 @@ const Dashboard = () => {
         <div className='flex items-center justify-between pe-10 py-3 bg-gray-100'>
           <h1 className='ps-[10px] text-black text-md md:text-2xl font-semibold hidden md:block'>Welcome back, {userInfo?.first_name}{" "}{userInfo?.last_name}</h1>
           <h1 className='ps-[10px] text-black text-md md:text-2xl font-semibold md:hidden'>Welcome {userInfo?.first_name}</h1>
-          <span className='bg-black text-[12px] text-white py-1 px-2 rounded-lg cursor-pointer hidden md:block'>Fund Now</span>
         </div>
         <h2 className='ps-[10px] md:ps-[35px] py-3'>Overview</h2>
         <div className='flex md:gap-10 gap-4 px-2 md:px-[35px] py-4 md:flex-row flex-col'>
@@ -53,8 +53,7 @@ const Dashboard = () => {
         </div>
         <h2 className='ps-[35px] py-3'>Recent Wallet Funding</h2>
 
-        <div className="overflow-x-auto mb-6 w-[80vw] ms-[38px]">
-        <table className="min-w-full table-auto border-collapse">
+        <DashboardTable>
         <thead>
           <tr className="bg-blue-50 text-left">
             <th className="px-4 py-2 border">Reference</th>
@@ -81,8 +80,7 @@ const Dashboard = () => {
             </tr>
           )}
         </tbody>
-      </table>
-      </div>
+        </DashboardTable>
       <Pagination
       setItemsPerPage={setItemsPerPage}
         currentPage={currentPage}
