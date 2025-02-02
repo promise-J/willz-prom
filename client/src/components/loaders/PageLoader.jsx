@@ -19,9 +19,12 @@ const PageLoader = () => {
 
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div 
-        className="w-32 h-32 border-8 border-red border-t-8 border-t-white rounded-full animate-spin"
-        style={{ animation: 'spin 2s linear infinite' }} // Applying the spin animation
-      ></div>
+        className=""
+        // className="w-32 h-32 border-8 border-red border-t-8 border-t-white rounded-full animate-spin"
+        // style={{ animation: 'spin 2s linear infinite' }} // Applying the spin animation
+      >
+        <img src="/images/app-sarr.jpg" className="rounded-full animate-pulse w-[300px] h-[300px] object-contain" />
+      </div>
 
       {/* Inject custom styles directly into the component */}
       <style>{styles}</style>

@@ -24,6 +24,7 @@ import StudioPaddi from "./pages/dashboard/StudioPaddi";
 import LocalDish from "./pages/dashboard/LocalDish";
 import ClassicDish from "./pages/dashboard/ClassicDish";
 import ConventionalDish from "./pages/dashboard/ConventionalDish";
+import PaystackCallBack from "./pages/PaystackCallBack";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -48,11 +49,10 @@ import ConventionalDish from "./pages/dashboard/ConventionalDish";
 // import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
-  const {setAppLoading} = useModal()
 
-  useEffect(()=>{
-    setAppLoading(false)
-  })
+  // useEffect(()=>{
+  //   setAppLoading(false)
+  // },[])
 
   useEffect(() => {
     AOS.init({
@@ -89,50 +89,9 @@ function App() {
         <Route path="classic-dish" element={<ClassicDish />} />
         <Route path="conventional-dish" element={<ConventionalDish />} />
       </Route>
-      {/* <Route path="/auth" element={<AuthLayout />}>
-        <Route path="signin-email" element={<LoginWithEmail />} />
-        <Route path="signin-phone" element={<LoginWithPhone />} />
-        <Route path="signup" element={<Register />} />
-        <Route path="verify-account" element={<VerifyAccount />} />
-        <Route path="success-verify-account" element={<SuccessVerifyAccount />} />
-        <Route path="reset-password" element={<ResetPassword />} />
-        <Route path="confirm-reset-password" element={<ConfirmResetPassword />} />
+      <Route path="/paystack">
+        <Route path="paystack-callback" element={<PaystackCallBack />}/>
       </Route>
-      <Route path="/getting-started" element={<BusinessLayout />}>
-        <Route index element={<GettingStarted />} />
-        <Route path="subscription" element={<SelectSubscribtion />} />
-        <Route path="payment/provider" element={<SelectPaymentProvider />} />
-        <Route path="payment/method" element={<ChosePaymentMethod />} />
-        <Route path="payment/card-details" element={<CardDetails />} />
-        <Route path="payment/card-pin" element={<CardPin />} />
-        <Route path="payment/success" element={<SuccessPayment />} />
-      </Route>
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<DashboardHomepage />} />
-        <Route path="sales" element={<Sales />} />
-        <Route path="expenses" element={<Expenses />} />
-        <Route path="transaction" element={<Transactions />} />
-        <Route path="user-admin" element={<UserAdmin />} />
-        <Route path="users-invite" element={<UsersInvite />} />
-        <Route path="wallet" element={<Wallet />} />
-        <Route path="designs" element={<Designs />} />
-        <Route path="designs/template" element={<DesignTemplate />} />
-        <Route path="my-products" element={<MyProducts />} />
-        <Route path="my-services" element={<MyServices />} />
-        <Route path="my-website" element={<MyWebsite />} />
-        <Route path="my-customers" element={<MyCustomers />} />
-        <Route path="Plugs" element={<Plugs />} />
-        <Route path="Plugs/:searchvalues" element={<Plugs />} />
-        <Route path="help-and-faqs" element={<HelpAndFAQs />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-      <Route path="/user" element={<UserLayout />}>
-        <Route index element={<User />} />
-        <Route path="cart" element={<Cart />} />
-        <Route path="product/:id" element={<ProductDetail />} />
-        <Route path="service/:id" element={<ServiceDetail />} />
-        <Route path="ongoing" element={<OngoingService />} />
-      </Route> */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   </div>

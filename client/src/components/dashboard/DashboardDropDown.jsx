@@ -1,9 +1,8 @@
 import React from 'react'
 import { IoMdClose } from "react-icons/io";
 import { PiBowlFood } from 'react-icons/pi';
-import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { MdHome, MdLightbulbOutline, MdVideoCameraFront, MdWallet } from 'react-icons/md';
+import { MdHome, MdLightbulbOutline, MdWallet } from 'react-icons/md';
 import { LuSquareChartGantt } from 'react-icons/lu';
 import { BsGlobe } from 'react-icons/bs';
 import { FaTv } from 'react-icons/fa';
@@ -13,7 +12,6 @@ import DashboardSidebarItem from './DashboardSidebarItem';
 
 const DashboardDropDown = ({setShowSidebar, showSidebar}) => {
     const {userInfo} = useAuth()
-    const {pathname} = useLocation()
 
     const handleCloseSidebar = ()=>{
         setShowSidebar(false)
@@ -25,7 +23,7 @@ const DashboardDropDown = ({setShowSidebar, showSidebar}) => {
             <IoMdClose onClick={handleCloseSidebar} color='white' size={20} cursor='pointer' className='absolute right-5 top-5 font-bold' />
             <div className="py-4 flex justify-between pe-5">
           <img
-            src="/images/app-sar.jpg"
+            src="/images/app-sarr.jpg"
             className="h-[35px] w-[100px] ms-[30px]"
           />
           {userInfo?.image?.imageUrl ? (

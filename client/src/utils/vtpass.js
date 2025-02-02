@@ -1,3 +1,11 @@
+import axios from "axios";
+
+const VTPASS_URL = 'https://vtpass.com/api/'
+const VTPASS_SANDBOX_URL = 'https://sandbox.vtpass.com/api/'
+
+const VITE_VTPASS_PK = import.meta.env.VITE_VTPASS_PK
+const VITE_VTPASS_SK = import.meta.env.VITE_VTPASS_SK
+const VITE_VTPASS_API_KEY = import.meta.env.VITE_VTPASS_API_KEY
 
 function generateRequestID() {
     // Get the current date in Africa/Lagos timezone (GMT+1)
@@ -22,5 +30,24 @@ function generateRequestID() {
     return requestID;
 }
 
+async function getRequestForVTPASS(data){
+    // if(!data){
+    //     return {message: 'Data must be provided'}
+    // }
+    const header = {
+        'api-key': VITE_VTPASS_API_KEY,
+        'public-key': VITE_VTPASS_PK
+    }
+    const url = `${VTPASS_SANDBOX_URL}${'service-variations?serviceID=mtn-data'}`
+    const res = await axios.get(url)
+    console.log(res,'the data plan')
+}
 
-export {generateRequestID}
+// For GET request you’ll need to pass the api-key and public-key through the request header.
+// api-key: xxxxxxxxxxxxxxxxxxxx
+// public-key: PK_xxxxxxxxxxxxxxxxx
+// For POST request you’ll need to pass the api-key and secret-key through the request header.
+// api-key: xxxxxxxxxxxxxxxxxxxx 
+// secret-key: SK_xxxxxxxxxxxxxxxxx
+
+export {generateRequestID, getRequestForVTPASS}

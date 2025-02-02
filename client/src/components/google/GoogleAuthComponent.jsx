@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
@@ -10,24 +11,13 @@ const GoogleAuthComponent = () => {
   const navigate = useNavigate();
 
   const { signinWithGoogle } = useAuth();
+  const { setAppLoading } = useModal();
 
   const onSuccess = async (response) => {
     try {
+      setAppLoading(true)
       const credential = response.credential;
       const decoded = jwtDecode(credential);
-      console.log({response})
-
-      const userProfile = await fetch(
-        "https://www.googleapis.com/oauth2/v3/userinfo",
-        {
-          headers: {
-            Authorization: `Bearer ${credential}`, // Add your valid OAuth token here
-          },
-        }
-      );
-      const userData = await userProfile.json();
-      const profileImageUrl = userData.picture;
-
       const payload = {
         email: decoded?.email,
         username: decoded?.name,
@@ -40,6 +30,7 @@ const GoogleAuthComponent = () => {
         },
       };
       const res = await signinWithGoogle(payload);
+      setAppLoading(false)
       if (res?.data?.data.google_type == "register") {
         toast.success("You have sign up successfully");
         return navigate("/login");

@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GoogleAuthComponent from "../../components/google/GoogleAuthComponent";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
+import { useModal } from "../../context/ModalContext";
 
 const initialRegisterData = {
   email: '',
@@ -24,6 +25,8 @@ const Signup = () => {
   const navigate = useNavigate()
 
   const {signup, authError, isLoading} = useAuth()
+   const { setAppLoading } = useModal();
+
 
   const handleChange = (e)=>{
     const {name, value} = e.target
@@ -39,7 +42,9 @@ const Signup = () => {
         first_name: registerData.first_name,
         last_name: registerData.last_name
       }
+      setAppLoading(true)
       const res = await signup(payload)
+      setAppLoading(false)
       if(res?.data?.success){
         const data_response = res?.data?.data?.message
         toast.success(data_response)
@@ -56,9 +61,9 @@ const Signup = () => {
 
   return (
     <div>
-      <div className="md:w-2/3 w-full md:px-2 px-4 mx-auto mt-20 p-3 shadow-lg">
+      <div className="md:w-1/3 w-full md:px-2 px-4 mx-auto mt-20 p-3 shadow-lg">
         <h1 className="text-center text-2xl">Sign up now</h1>
-        <div className="mt-4 relative">
+        <div className="mt-4 relative rounded-lg">
           <IoMailUnreadOutline className="absolute top-2 right-3" />
           <input
             value={registerData.email}
@@ -66,12 +71,12 @@ const Signup = () => {
             onChange={handleChange}
             type="text"
             placeholder="Enter your email"
-            className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+            className="px-4 border-gray-300 rounded-lg border py-4 w-full h-full outline-none"
           />
         </div>
       
 
-          <div className="mt-4 relative">
+          <div className="mt-4 relative rounded-lg">
             <FaRegUser className="absolute top-2 right-3" />
             <input
             value={registerData.username}
@@ -79,10 +84,10 @@ const Signup = () => {
             onChange={handleChange}
               type="text"
               placeholder="Enter your username"
-              className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+              className="px-4 border-gray-300 border rounded-lg py-4 w-full h-full outline-none"
             />
           </div>
-          <div className="mt-4 relative">
+          <div className="mt-4 relative rounded-lg">
             <FaRegUser className="absolute top-2 right-3" />
             <input
             value={registerData.first_name}
@@ -90,10 +95,10 @@ const Signup = () => {
             onChange={handleChange}
               type="text"
               placeholder="Enter your first name"
-              className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+              className="px-4 border-gray-300 rounded-lg border py-4 w-full h-full outline-none"
             />
           </div>
-          <div className="mt-4 relative">
+          <div className="mt-4 relative rounded-lg">
             <FaRegUser className="absolute top-2 right-3" />
             <input
             value={registerData.last_name}
@@ -101,10 +106,10 @@ const Signup = () => {
             onChange={handleChange}
               type="text"
               placeholder="Enter your last name"
-              className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+              className="px-4 border-gray-300 rounded-lg border py-4 w-full h-full outline-none"
             />
           </div>
-          <div className="mt-4 relative">
+          <div className="mt-4 relative rounded-lg">
           {showPassword ? (
             <FiEyeOff
               className="absolute top-2 right-3"
@@ -123,7 +128,7 @@ const Signup = () => {
           onChange={handleChange}
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
-            className="px-4 border-gray-300 border py-4 w-full h-full outline-none"
+            className="px-4 border-gray-300 rounded-lg border py-4 w-full h-full outline-none"
           />
         </div>
           <div className="mt-4">
@@ -135,7 +140,7 @@ const Signup = () => {
         <div className="mt-4 py-4 flex flex-col items-center">
           <h2>
             Already have an account?{" "}
-            <Link className="text-blue-900" to="/login">
+            <Link className="text-green-600" to="/login">
               Sign in
             </Link>
           </h2>

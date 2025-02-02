@@ -5,8 +5,11 @@ const Pagination = ({
   totalPages,
   onPageChange,
   setItemsPerPage,
+  itemPerPage,
   setCurrentPage
 }) => {
+
+  
   return (
     <div className="flex justify-center items-center space-x-4 mt-6 mb-10">
       <button
@@ -35,6 +38,7 @@ const Pagination = ({
           setCurrentPage(1)
           setItemsPerPage(e.target.value);
         }}
+        value={itemPerPage}
         className="border-gray-300 border-2 px-4 py-1 block"
         name=""
         id=""

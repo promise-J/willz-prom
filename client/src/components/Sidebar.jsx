@@ -22,7 +22,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
         <div className="mt-3 flex items-center px-3 gap-5 mb-10">
           <img
             className="w-[40px] h-[40px] rounded-full"
-            src="/images/app-sar.jpg"
+            src="/images/app-sarr.jpg"
             alt=""
           />
           <h4>App Ser</h4>

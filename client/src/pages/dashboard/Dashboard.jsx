@@ -87,6 +87,7 @@ const Dashboard = () => {
         totalPages={totalPages}
         onPageChange={handlePageChange}
         setCurrentPage={setCurrentPage}
+        itemPerPage={itemsPerPage}
       />
       </Container>
   )

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 // import ApiSetup from "../utils/ApiSetup";
 
 const ModalContext = createContext();
@@ -7,7 +7,7 @@ const ModalContext = createContext();
 export const useModal = () => useContext(ModalContext);
 
 const ModalProvider = ({ children }) => {
-  const [appLoading, setAppLoading] = useState(true);
+  const [appLoading, setAppLoading] = useState(false);
   const [isProductOpen, setIsProductOpen] = useState(false);
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
   const [isTransactionsOpen, setIsTransactionsOpen] = useState(false);

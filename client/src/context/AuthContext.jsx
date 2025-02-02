@@ -1,25 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import ApiSetup from "../utils/ApiSetup";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useModal } from "./ModalContext";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const route = useLocation();
+  const { setAppLoading } = useModal();
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [authError, setAuthError] = useState("");
   const token = localStorage.getItem("app-ser-token");
 
-  const [email, setEmail] = useState("");
   const [userInfo, setUserInfo] = useState(null);
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [password, setPassword] = useState("");
-  const [gender, setGender] = useState("male");
-  const [phoneNo, setPhoneNo] = useState("");
 
   const api = ApiSetup();
 
@@ -75,7 +71,9 @@ export const AuthProvider = ({ children }) => {
   const fetchUser = async () => {
     try {
       if (token) {
+        setAppLoading(true)
         const res = await api.get("users/get-account");
+        setAppLoading(false)
         if (res?.data?.success == true) {
           setUserInfo(res?.data?.data?.message);
         } else if (res?.data?.message == "jwt_expired") {

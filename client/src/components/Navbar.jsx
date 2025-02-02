@@ -7,9 +7,9 @@ const Navbar = ({setShowSidebar}) => {
   return (
     <div className="border-b-2 h-[90px]">
       <div className="flex justify-between px-8 h-full items-center">
-        <img className="w-[80px] h-[50px]" src="/images/app-sar.jpg" />
+        <img className="w-[80px] h-[50px]" src="/images/app-sarr.jpg" />
         <div className="flex items-center h-full gap-12">
-          {token ? (
+          {/* {token && (
             <button
             onClick={() => {
               logOut()
@@ -19,11 +19,7 @@ const Navbar = ({setShowSidebar}) => {
           >
             Logout
           </button>
-          ) : (
-            <Link className="text-blue-900" to="/sign-up">
-              Sign up
-            </Link>
-          )}
+          )} */}
           <IoMdMenu className="md:hidden" onClick={()=> setShowSidebar(true)} cursor={"pointer"} size={25} />
         </div>
       </div>
