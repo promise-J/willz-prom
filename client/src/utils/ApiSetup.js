@@ -8,6 +8,7 @@ const ApiSetup = () => {
   // const baseUrl = "http://localhost:5000/api/"
   const isDev = import.meta.env.VITE_IS_DEV || 'no'
   const baseUrl = isDev == 'yes' ? "http://localhost:5000/api/" : "https://app-sar.onrender.com/api/"
+  console.log({baseUrl})
   // const baseUrl = import.meta.env.VITE_BASE_URL
   const token = localStorage.getItem("app-ser-token");
   

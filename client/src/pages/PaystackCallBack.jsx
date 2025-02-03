@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import ApiSetup from "../utils/ApiSetup";
 import { useModal } from "../context/ModalContext";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 const PaystackCallBack = () => {
   const api = ApiSetup();
@@ -14,10 +15,14 @@ const PaystackCallBack = () => {
     const trxref = searchParams.get("trxref");
     async function verifyPayment() {
     //   setAppLoading(true)
-      const res = await api.get(`paystack/verify-payment?trxref=${trxref}`);
+      const res = await axios.get(`https://api.paystack.co/transaction/verify/${trxref}`, {
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_PAYSTACK_SECRET_KEY}`,
+        },
+      });
     //   setAppLoading(false)
-      console.log({ res: res?.data });
-      if(!res?.data?.success){
+      console.log({ res: res?.data?.status });
+      if(!res?.data?.status){
         return toast.error("We couldn't validate your payment. Please try again later.")
       }
       toast.success('Payment successful')
