@@ -71,7 +71,7 @@ class PaystackService extends BaseService {
       );
 
       response = verificationResponse.data
-      console.log({response, pk: this.PAYSTACK_SECRET_KEY})
+      console.log({resp: response, pk: this.PAYSTACK_SECRET_KEY})
       if(empty(verificationResponse.data.status)){
           return BaseService.sendFailedResponse(response);
       }
