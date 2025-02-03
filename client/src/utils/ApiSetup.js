@@ -4,8 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 const ApiSetup = () => {
   const pathname = useLocation()
-  console.log({pathname})
-  // console.log(pathname.includes('localhost'))
   
   // const baseUrl = "http://localhost:5000/api/"
   const isDev = import.meta.env.VITE_IS_DEV || 'no'

@@ -15,12 +15,12 @@ const AirtimeTopup = () => {
 
   useEffect(()=>{
     async function fetchData(){
-      setAppLoading(true)
+      // setAppLoading(true)
       const res = await axios.get('https://mypayconnect.com/api/user', {headers: {
         'Authorization': `Token a3f7263350555badacf5ffca21b889f8010bedb8`,
         'Content-Type': 'application/json'
       }})
-      setAppLoading(false)
+      // setAppLoading(false)
       // const res = await api.get('network')
       console.log({res})
     }
