@@ -1,10 +1,14 @@
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 
 const ApiSetup = () => {
+  const pathname = useLocation()
+  console.log({pathname})
+  // console.log(pathname.includes('localhost'))
   
   // const baseUrl = "http://localhost:5000/api/"
-  const isDev = import.meta.env.VITE_LIVE || 'no'
+  const isDev = import.meta.env.VITE_IS_DEV || 'no'
   const baseUrl = isDev == 'yes' ? "http://localhost:5000/api/" : "https://app-sar.onrender.com/api/"
   // const baseUrl = import.meta.env.VITE_BASE_URL
   const token = localStorage.getItem("app-ser-token");
