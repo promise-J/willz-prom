@@ -1,6 +1,7 @@
 
 require("dotenv").config()
 const express = require('express')
+const axios = require('axios')
 const router = require("./routes")
 
 const path = require("path");
@@ -11,10 +12,6 @@ const port = process.env.PORT || 5000;
 const mongoURL = process.env.MONGODB_URL;
 
 const app = express()
-// https://api.rechargeapps.com
-// https://api.mobilevtu.com/v1/‹API Key›/‹resource URI›
-
-
 
 app.use(cors())
 

@@ -8,8 +8,7 @@ const ApiSetup = () => {
   // const baseUrl = "http://localhost:5000/api/"
   const isDev = import.meta.env.VITE_IS_DEV || 'no'
   const baseUrl = isDev == 'yes' ? "http://localhost:5000/api/" : "https://app-sar.onrender.com/api/"
-  console.log({baseUrl})
-  // const baseUrl = import.meta.env.VITE_BASE_URL
+  // console.log({baseUrl, isDev})
   const token = localStorage.getItem("app-ser-token");
   
 
@@ -40,23 +39,23 @@ const ApiSetup = () => {
 };
 
 
-const CountryApi = () => {
-  const baseUrl = "https://www.universal-tutorial.com/api/";
-  const token= import.meta.env.VITE_COUNTRY_TOKEN
+// const CountryApi = () => {
+//   const baseUrl = "https://www.universal-tutorial.com/api/";
+//   const token= import.meta.env.VITE_COUNTRY_TOKEN
   
 
-  const fetcherApi = axios.create({
-    baseURL: baseUrl,
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  });
+//   const fetcherApi = axios.create({
+//     baseURL: baseUrl,
+//     headers: {
+//       'Authorization': `Bearer ${token}`,
+//       'Content-Type': 'application/json'
+//     }
+//   });
   
-  return {
-    get: (endpoint, params) => fetcherApi.get(endpoint, { params }),
-}
-}
+//   return {
+//     get: (endpoint, params) => fetcherApi.get(endpoint, { params }),
+// }
+// }
 
 function reindex(key, arr){
   if(arr.length < 1) return
@@ -87,5 +86,5 @@ function formatDate(createdAt) {
 
 
 export default ApiSetup;
-export  {CountryApi, reindex, formatDate};
+export  { reindex, formatDate};
 
