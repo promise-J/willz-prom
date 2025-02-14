@@ -28,7 +28,7 @@ const DataTopUp = () => {
         amount,
         metadata
       }
-      return console.log(data)
+      console.log(data)
       const res = await purchaseData(data)
       if(res?.data?.code == 'success'){
         toast.success('Data purchased successfully')
