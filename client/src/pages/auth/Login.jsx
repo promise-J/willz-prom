@@ -17,8 +17,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState(initialLoginData);
 
+  
+
   const navigate = useNavigate()
-  const {signin, authError, isLoading} = useAuth()
+  const {signin, setUserType, isLoading, userType} = useAuth()
   const { setAppLoading } = useModal();
 
 
@@ -31,11 +33,12 @@ const Login = () => {
     try {
       const payload = {
         email: loginData.email,
-        password: loginData.password
+        password: loginData.password,
       }
       setAppLoading(true)
       const res = await signin(payload)
       setAppLoading(false)
+      setUserType('')
       if(res?.data?.success){
         toast.success('Logged in successfully.')
         navigate('/dashboard')
@@ -68,8 +71,8 @@ const Login = () => {
           </div>
           <div className="mt-2 rounded-lg relative">
             {showPassword ? <FiEyeOff 
-            className="absolute top-2 right-3"
-             onClick={()=> setShowPassword(!showPassword)} /> : <MdOutlineRemoveRedEye className="absolute top-2 right-3" onClick={()=> setShowPassword(!showPassword)} size={18} />}
+            className="absolute top-4 right-3"
+             onClick={()=> setShowPassword(!showPassword)} /> : <MdOutlineRemoveRedEye className="absolute top-4 right-3" onClick={()=> setShowPassword(!showPassword)} size={18} />}
             <input
               value={loginData.password}
               name="password"
@@ -93,6 +96,7 @@ const Login = () => {
             </Link>
           </h2>
         </div>
+        {!userType && <marquee className="text-blue-900 font-bold" behavior="" direction="">To sign up with google, please select your user type</marquee>}
         <GoogleAuthComponent />
       </div>
     </div>

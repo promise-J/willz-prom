@@ -21,7 +21,14 @@ const DataTopUp = () => {
 
   const handleSubmit = async (metadata)=>{
     try {
-      const res = await purchaseData({phone: '08111158225', network: 'glo', variation_id: '1024', amount, metadata})
+      const data = {
+        phone,
+        network: selectedProvider,
+        variation_id: selectedDataPlan,
+        amount,
+        metadata
+      }
+      const res = await purchaseData(data)
       if(res?.data?.code == 'success'){
         toast.success('Data purchased successfully')
       }
@@ -64,7 +71,7 @@ const DataTopUp = () => {
               <option value="">Select a plan</option>
               {
                 selectedDataPlans.map(plan=>(
-                  <option key={plan?.id} value={plan?.variation_id}>{plan?.value}</option>
+                  <option key={plan?.id} value={plan?.variation_id}>{plan?.value}({plan?.amount})</option>
                 ))
               }
             </select>

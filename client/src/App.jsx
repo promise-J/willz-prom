@@ -25,6 +25,10 @@ import LocalDish from "./pages/dashboard/LocalDish";
 import ClassicDish from "./pages/dashboard/ClassicDish";
 import ConventionalDish from "./pages/dashboard/ConventionalDish";
 import PaystackCallBack from "./pages/PaystackCallBack";
+import HealthDetails from "./pages/dashboard/HealthDetails";
+import Categories from "./pages/dashboard/admin/Categories";
+import Profile from "./pages/dashboard/Profile";
+import Registration from "./pages/auth/Registration";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -49,7 +53,6 @@ import PaystackCallBack from "./pages/PaystackCallBack";
 // import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
-
   // useEffect(()=>{
   //   setAppLoading(false)
   // },[])
@@ -62,39 +65,45 @@ function App() {
 
   return (
     <div className="min-h-screen ">
-    <Toaster />
-    {/* Include all modals here */}
-    <PageLoader />
-    {/* end all modals here */}
-    <Routes>
-      <Route path="/" element={<DefaultLayout />}>
-        {/* All static pages (homepage, about, contact and disclaimer routes here) */}
-        <Route index element={<Homepage />} />
-        <Route path="sign-up" element={<Signup />} />
-        <Route path="login" element={<Login />} />
-        <Route path="verify-email" element={<VerifyEmail />} />
-      </Route>
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        {/* All static pages (homepage, about, contact and disclaimer routes here) */}
-        <Route index element={<Dashboard />} />
-        <Route path="airtime-top-up" element={<AirtimeTopup />} />
-        <Route path="fund-wallet" element={<FundAccount />} />
-        <Route path="data-top-up" element={<DataTopUp />} />
-        <Route path="electricity-bill" element={<ElectricityBill />} />
-        <Route path="tv-subscription" element={<TvSubcription />} />
-        <Route path="food-paddi" element={<FoodPaddi />} />
-        <Route path="health-paddi" element={<HealthPaddi />} />
-        <Route path="studio-paddi" element={<StudioPaddi />} />
-        <Route path="local-dish" element={<LocalDish />} />
-        <Route path="classic-dish" element={<ClassicDish />} />
-        <Route path="conventional-dish" element={<ConventionalDish />} />
-      </Route>
-      <Route path="/paystack">
-        <Route path="paystack-callback" element={<PaystackCallBack />}/>
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </div>
+      <Toaster />
+      {/* Include all modals here */}
+      <PageLoader />
+      {/* end all modals here */}
+      <Routes>
+        <Route path="/" element={<DefaultLayout />}>
+          {/* All static pages (homepage, about, contact and disclaimer routes here) */}
+          <Route index element={<Homepage />} />
+          <Route path="sign-up" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="registration" element={<Registration />} />
+          <Route path="verify-email" element={<VerifyEmail />} />
+        </Route>
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          {/* All static pages (homepage, about, contact and disclaimer routes here) */}
+          <Route index element={<Dashboard />} />
+          <Route path="airtime-top-up" element={<AirtimeTopup />} />
+          <Route path="profile" element={<Profile />} />
+          {/* <Route path="fund-wallet" element={<FundAccount />} /> */}
+          <Route path="data-top-up" element={<DataTopUp />} />
+          <Route path="electricity-bill" element={<ElectricityBill />} />
+          <Route path="tv-subscription" element={<TvSubcription />} />
+          <Route path="food-paddi" element={<FoodPaddi />} />
+          <Route path="health-paddi" element={<HealthPaddi />} />
+          <Route path="health-details" element={<HealthDetails />} />
+          <Route path="studio-paddi" element={<StudioPaddi />} />
+          <Route path="local-dish" element={<LocalDish />} />
+          <Route path="classic-dish" element={<ClassicDish />} />
+          <Route path="conventional-dish" element={<ConventionalDish />} />
+          <Route path="categories">
+          <Route index element={<Categories />} />
+          </Route>
+        </Route>
+        <Route path="/paystack">
+          <Route path="paystack-callback" element={<PaystackCallBack />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 }
 

@@ -11,3 +11,8 @@ export function formatNumberWithCommas(value) {
     // Set the value back to the input field
     // event.target.value = value;
   }
+
+export function formatDate(date, format='DD-MM-YYYY'){
+  const formattedDate = moment(date).format(format);
+  return formattedDate
+}

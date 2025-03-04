@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [authError, setAuthError] = useState("");
+  const [userType, setUserType] = useState('')
   const token = localStorage.getItem("app-ser-token");
 
   const [userInfo, setUserInfo] = useState(null);
@@ -25,15 +26,16 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
     return res;
   };
+
   const signin = async (body) => {
     setIsLoading(true);
     const res = await api.post("users/login", body);
     const token = res?.data.data?.message
-    console.log(token,'the login token')
     localStorage.setItem('app-ser-token', token)
     setIsLoading(false);
     return res;
   };
+
   const signinWithGoogle = async (body) => {
     setIsLoading(true);
     const res = await api.post("users/google-auth", body);
@@ -44,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     }
     return res;
   };
+
   const verifyEmail = async (body) => {
     setIsLoading(true);
     const res = await api.post("users/verify-email", body);
@@ -54,7 +57,6 @@ export const AuthProvider = ({ children }) => {
   const verifyAcc = async (email) => {
     setIsLoading(true);
     const res = await api.post(`/users/verify-email?email=${email}`);
-
     if (res.success == true) {
       setIsLoading(false);
       setIsError(false);
@@ -126,7 +128,9 @@ export const AuthProvider = ({ children }) => {
         setIsError,
         authError,
         signinWithGoogle,
-        verifyEmail
+        verifyEmail,
+        setUserType,
+        userType
       }}
     >
       {children}

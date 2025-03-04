@@ -22,7 +22,7 @@ const ElectricityBill = () => {
 
   const handleSubmit = async (metadata) => {
     try {
-      const res = await purchaseElectricity({phone, meter_number, service_id, amount, metadata});
+      const res = await purchaseElectricity({phone, meter_number, service_id: serviceId, amount, metadata});
     } catch (error) {
       console.log("error from transaction", error);
     }

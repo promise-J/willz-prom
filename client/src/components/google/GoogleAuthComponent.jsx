@@ -10,30 +10,33 @@ const GoogleAuthComponent = () => {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
   const navigate = useNavigate();
 
-  const { signinWithGoogle } = useAuth();
+  const { signinWithGoogle, userType, setUserType } = useAuth();
   const { setAppLoading } = useModal();
 
   const onSuccess = async (response) => {
     try {
-      setAppLoading(true)
+      setAppLoading(true);
       const credential = response.credential;
       const decoded = jwtDecode(credential);
+
       const payload = {
         email: decoded?.email,
         username: decoded?.name,
         password: decoded?.jti,
         first_name: decoded?.family_name,
         last_name: decoded?.given_name,
+        userType,
         image: {
           imageUrl: decoded?.picture,
           publicId: "",
         },
       };
       const res = await signinWithGoogle(payload);
-      setAppLoading(false)
+      setAppLoading(false);
+      setUserType('')
       if (res?.data?.data.google_type == "register") {
-        toast.success("You have sign up successfully");
-        return navigate("/login");
+        toast.success("You have sign up successfully", {position: 'top-right'});
+        return navigate(`/registration?email=${decoded?.email}`);
       } else if (res?.data?.data?.google_type == "login") {
         toast.success("You have logged in successfully");
         navigate("/dashboard");
@@ -61,7 +64,7 @@ const GoogleAuthComponent = () => {
         />
       </div>
     </GoogleOAuthProvider>
-  );
+  )
 };
 
 export default GoogleAuthComponent;
