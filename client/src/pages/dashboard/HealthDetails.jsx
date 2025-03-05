@@ -31,7 +31,7 @@ const HealthDetails = () => {
           is possible.
           </p>
         </div>
-        <a href="https://wa.me//+2348165158607">
+        <a href="https://wa.me//+2349031530186">
         <img className="h-[60px] absolute bottom-0 right-0 cursor-pointer rounded-full" alt="whatsapp icon" src="/images/whatsapp-gold.jpg" />
         </a>
       </div>

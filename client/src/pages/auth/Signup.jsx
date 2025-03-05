@@ -62,7 +62,7 @@ const Signup = () => {
       const result = checkPasswordStrength(value);
       setPasswordStrength(result);
     }
-    console.log('marry')
+
     setRegisterData({ ...registerData, [name]: value });
   };
 

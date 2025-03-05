@@ -25,7 +25,6 @@ const GoogleAuthComponent = () => {
         password: decoded?.jti,
         first_name: decoded?.family_name,
         last_name: decoded?.given_name,
-        userType,
         image: {
           imageUrl: decoded?.picture,
           publicId: "",
@@ -34,12 +33,18 @@ const GoogleAuthComponent = () => {
       const res = await signinWithGoogle(payload);
       setAppLoading(false);
       setUserType('')
-      if (res?.data?.data.google_type == "register") {
-        toast.success("You have sign up successfully", {position: 'top-right'});
-        return navigate(`/registration?email=${decoded?.email}`);
-      } else if (res?.data?.data?.google_type == "login") {
-        toast.success("You have logged in successfully");
-        navigate("/dashboard");
+      if(!res?.data?.success){
+        const error = res?.data?.data?.error || 'Something went wrong. Please try again later'
+        toast.error(error,{position: 'top-right'})
+        return navigate(`/registration?email=${decoded.email}`)
+      }else{
+        if (res?.data?.data.google_type == "register") {
+          toast.success("You have sign up successfully", {position: 'top-right'});
+          return navigate(`/registration?email=${decoded?.email}`);
+        } else if (res?.data?.data?.google_type == "login") {
+          toast.success("You have logged in successfully");
+          navigate("/dashboard");
+        }
       }
     } catch (error) {
       console.log(error);

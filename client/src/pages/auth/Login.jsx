@@ -7,6 +7,7 @@ import GoogleAuthComponent from "../../components/google/GoogleAuthComponent";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { useModal } from "../../context/ModalContext";
+import SuccessScreen from "../../components/screen/SuccessScreen";
 
 const initialLoginData = {
   password: '',
@@ -96,7 +97,6 @@ const Login = () => {
             </Link>
           </h2>
         </div>
-        {!userType && <marquee className="text-blue-900 font-bold" behavior="" direction="">To sign up with google, please select your user type</marquee>}
         <GoogleAuthComponent />
       </div>
     </div>

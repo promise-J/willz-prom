@@ -29,6 +29,8 @@ import HealthDetails from "./pages/dashboard/HealthDetails";
 import Categories from "./pages/dashboard/admin/Categories";
 import Profile from "./pages/dashboard/Profile";
 import Registration from "./pages/auth/Registration";
+import AboutPage from "./pages/landing/About";
+import ContactPage from "./pages/landing/Contact";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -73,6 +75,8 @@ function App() {
         <Route path="/" element={<DefaultLayout />}>
           {/* All static pages (homepage, about, contact and disclaimer routes here) */}
           <Route index element={<Homepage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="sign-up" element={<Signup />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
@@ -83,7 +87,6 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="airtime-top-up" element={<AirtimeTopup />} />
           <Route path="profile" element={<Profile />} />
-          {/* <Route path="fund-wallet" element={<FundAccount />} /> */}
           <Route path="data-top-up" element={<DataTopUp />} />
           <Route path="electricity-bill" element={<ElectricityBill />} />
           <Route path="tv-subscription" element={<TvSubcription />} />

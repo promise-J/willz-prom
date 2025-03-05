@@ -10,7 +10,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
     setShowSidebar(false);
   };
   return (
-    <div className="h-[100vh] fixed w-full z-10 overflow-hidden">
+    <div className="h-[100vh] fixed w-full z-20 overflow-hidden">
       <div className="relative bg-gray-100 h-full w-full pt-4">
         <MdClear
           onClick={() => setShowSidebar(false)}
@@ -38,7 +38,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
           </Link>
         </div>
         <div className="text-2xl my-3 rounded-lg py-2 flex justify-center">
-          <Link onClick={handleClickItem} to="/contact-us">
+          <Link onClick={handleClickItem} to="/contact">
             <h1>Contact us</h1>
           </Link>
         </div>
