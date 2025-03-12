@@ -9,6 +9,13 @@ const VerifyEmail = () => {
   const navigate = useNavigate()
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("email");
+  const token = localStorage.getItem('app-ser-token')
+
+    useEffect(()=>{
+        if(token){
+          navigate('/dashboard')
+        }
+      },[token])
 
 
   const handleVerifyEmail = async () => {

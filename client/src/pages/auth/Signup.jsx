@@ -5,7 +5,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai"
 import { AiOutlineCheckCircle } from "react-icons/ai"
 import { FaRegUser } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 import GoogleAuthComponent from "../../components/google/GoogleAuthComponent";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
@@ -25,15 +25,18 @@ const initialRegisterData = {
 };
 
 const Signup = () => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const { signup, setUserType, userType, isLoading, userInfo } = useAuth();
+  const token = localStorage.getItem('app-ser-token')
+  const navigate = useNavigate();
 
-  const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' }
-  ];
 
+  useEffect(()=>{
+    if(token){
+      navigate('/dashboard')
+    }
+  },[token])
   
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [registerData, setRegisterData] = useState(initialRegisterData);
   const [categories, setCategories] = useState([])
@@ -51,9 +54,7 @@ const Signup = () => {
   
   const api = ApiSetup()
 
-  const navigate = useNavigate();
 
-  const { signup, setUserType, userType, isLoading } = useAuth();
   const { setAppLoading } = useModal();
 
   const handleChange = (e) => {

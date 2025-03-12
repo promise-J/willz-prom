@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMailUnreadOutline } from "react-icons/io5";
 import { FiEyeOff } from "react-icons/fi";
@@ -17,7 +17,7 @@ const initialLoginData = {
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState(initialLoginData);
-
+  const token = localStorage.getItem('app-ser-token')
   
 
   const navigate = useNavigate()
@@ -29,6 +29,12 @@ const Login = () => {
     const {name, value} = e.target
     setLoginData({...loginData, [name]: value})
   }
+
+    useEffect(()=>{
+        if(token){
+          navigate('/dashboard')
+        }
+      },[token])
 
   const handleLogin = async()=>{
     try {

@@ -27,6 +27,7 @@ const Registration = () => {
   const api = ApiSetup();
 
   const navigate = useNavigate();
+  const token = localStorage.getItem('app-ser-token')
 
   const { setUserType, userType, isLoading } = useAuth();
   const { setAppLoading } = useModal();
@@ -77,6 +78,12 @@ const Registration = () => {
     fetchCategories();
   }, []);
 
+  useEffect(()=>{
+      if(token){
+        navigate('/dashboard')
+      }
+    },[token])
+
   function handleSelectedCategory(e) {
     const { value } = e.target;
     setSelectedCategory(value);
@@ -90,16 +97,6 @@ const Registration = () => {
     setSelectedOptions(e); // Update selected option state
   };
 
-  const handleChangeSubCategory = (event) => {
-    const options = event.target.options;
-    const values = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        values.push(options[i].value);
-      }
-    }
-    setSelectedSubCategories(values);
-  };
 
   return (
     <div>
