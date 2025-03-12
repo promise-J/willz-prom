@@ -1,6 +1,6 @@
 const UserController = require('../controllers/user.controller')
 const auth = require('../middlewares/auth')
-const { ROUTE_REGISTER, ROUTE_LOGIN, ROUTE_VERIFY_EMAIL, ROUTE_GOOGLE_AUTH, ROUTE_GET_ACCOUNT } = require('../util/page-route')
+const { ROUTE_REGISTER, ROUTE_LOGIN, ROUTE_VERIFY_EMAIL, ROUTE_GOOGLE_AUTH, ROUTE_GET_ACCOUNT, ROUTE_REGISTER_USER } = require('../util/page-route')
 
 const router = require('express').Router()
 
@@ -23,6 +23,10 @@ router.post(ROUTE_GOOGLE_AUTH, (req, res)=>{
 router.get(ROUTE_GET_ACCOUNT, [auth], (req, res)=>{
     const userController = new UserController()
     return userController.getUser(req, res)
+})
+router.post(ROUTE_REGISTER_USER, (req, res)=>{
+    const userController = new UserController()
+    return userController.registerUser(req, res)
 })
 
 module.exports = router

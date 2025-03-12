@@ -19,7 +19,6 @@ async function buildEmailTemplate (fileName, data) {
 // function to send mail
 async function sendMail (option) {
     try {
-        // check if there is an email option specified (from the register/createUser controller)
         if (!option.to || !option.from || !option.subject || !option.html) {
             console.log({success: false, message: 'Please provide email options [to from subject html]'})
             return false

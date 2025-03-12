@@ -12,12 +12,12 @@ const transactionSchema = new mongoose.Schema(
       enum: ["airtime", "data", "cable", "electricity", "vendor"],
       required: true,
     },
-    amount: { type: Number, required: true },
-    description: { type: String, required: true },
+    amount: { type: Number, required: true, trim: true },
+    // description: { type: String, required: true },
     trxref: { type: String, required: true },
     transaction: { type: String, required: true },
-    vendor: { type: String },
-    recipient: { type: String },
+    vendor: { type: mongoose.Schema.Types.ObjectId },
+    // recipient: { type: String },
     status: {
       type: String,
       enum: ["pending", "success", "failed"],
@@ -27,5 +27,5 @@ const transactionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Transaction = mongoose.model("Transaction", transactionSchema);
-module.exports = Transaction;
+const TransactionModel = mongoose.model("Transaction", transactionSchema);
+module.exports = TransactionModel;

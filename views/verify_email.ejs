@@ -53,6 +53,11 @@
         font-weight: 700;
         border: 1px solid rgb(31,58,138)
       }
+      .usertype{
+        text-transform: uppercase;
+        color: blue;
+        font-size: 20px;
+      }
       footer{
         /* background-color: rgb(171, 168, 168); */
         padding: 10px 0;
@@ -68,10 +73,10 @@
         <h1 class="email-heading section-body">WELCOME!</h1>
         <p class="email-message">Welcome <%= first_name %>  <%= last_name %></p>
         <p class="email-message">
-          You are welcome to App Ser! We are glad to have you onboard. Kindly
-          click on this link to verify your account
-          <!-- <a href="http://localhost:5173/verify-email/?email=<%=email %>">Click here</a> -->
-          <a href="<%=link %>">Click here</a>
+          You are welcome to App Ser! We are glad to have you onboard 
+          <% if (userType) { %> as a <span class="usertype"><%= userType %></span> <% } %>. 
+          Kindly click on this link to verify your account
+          <a href="<%= link %>">Click here</a>
         </p>
       </div>
       <footer>

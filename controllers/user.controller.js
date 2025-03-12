@@ -42,6 +42,14 @@ class UserController extends BaseController{
         }
         return BaseController.sendSuccessResponse(res, getUser.data)
     }
+    async registerUser(req, res){
+        const userService = new UserService()
+        const registerUser = await userService.registerUser(req, res)
+        if(!registerUser.success){
+            return BaseController.sendFailedResponse(res, registerUser.data)
+        }
+        return BaseController.sendSuccessResponse(res, registerUser.data)
+    }
 }
 
 module.exports = UserController

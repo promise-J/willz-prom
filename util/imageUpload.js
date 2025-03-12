@@ -42,10 +42,10 @@ function createMulterInstance (folder, transformation) {
   return multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
-        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/webp') {
           cb(null, true);
         } else {
-          cb(new Error('Invalid file format. Only JPEG and PNG images are allowed.'), false);
+          cb(new Error('Invalid file format. Only JPEG, WEBP and PNG images are allowed.'), false);
         }
       }
   })
