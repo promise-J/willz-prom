@@ -2,7 +2,7 @@ import React from "react";
 import { IoMdClose } from "react-icons/io";
 import { PiBowlFood } from "react-icons/pi";
 import { useAuth } from "../../context/AuthContext";
-import { MdHome, MdLightbulbOutline, MdWallet } from "react-icons/md";
+import { MdHome, MdLightbulbOutline, MdVideoCameraBack, MdWallet } from "react-icons/md";
 import { LuSquareChartGantt } from "react-icons/lu";
 import { BsGlobe, BsShop } from "react-icons/bs";
 import { FaTv, FaUser } from "react-icons/fa";
