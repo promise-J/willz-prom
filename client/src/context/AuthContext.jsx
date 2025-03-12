@@ -111,6 +111,33 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const uploadSingleImage = async (file)=>{
+    const formData = new FormData();
+    formData.append("file", file);
+    setAppLoading(true)
+    const res = await api.postFormData("utils/image-upload-single", formData)
+    setAppLoading(false)
+    if(res?.data?.success){
+      return {success: true, message: res?.data?.data?.message}
+    }else{
+      return {success: false, message: null}
+    }
+  }
+  const uploadMultipleImage = async (files)=>{
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append("file", file);
+    });
+    setAppLoading(true)
+    const res = await api.postFormData("utils/image-upload-multiple", formData)
+    setAppLoading(false)
+    if(res?.data?.success){
+      return {success: true, message: res?.data?.data?.message}
+    }else{
+      return {success: false, message: null}
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -130,7 +157,9 @@ export const AuthProvider = ({ children }) => {
         signinWithGoogle,
         verifyEmail,
         setUserType,
-        userType
+        userType,
+        uploadSingleImage,
+        uploadMultipleImage
       }}
     >
       {children}

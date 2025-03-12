@@ -12,7 +12,7 @@ const DataTopUp = () => {
   const api = ApiSetup()
 
   const {userInfo} = useAuth()
-  const {vtuBalance, purchaseData, createTransaction} = useVtu()
+  const {vtuBalance, purchaseData, vtuData} = useVtu()
   const [selectedProvider, setSelectedProvider] = useState('')
   const [amount, setAmount] = useState(0)
   const [phone, setPhone] = useState('')
@@ -42,6 +42,14 @@ const DataTopUp = () => {
     setSelectedDataPlans(data)
   },[selectedProvider])
 
+  // useEffect(()=>{
+  //   const dataLog = async ()=>{
+  //     const data = await vtuData()
+  //     console.log(data,'the vtu data')
+  //   }
+  //   dataLog()
+  // },[])
+
 
   function handleSelectDataPlan(e){
     const value = e.target.value
@@ -49,6 +57,7 @@ const DataTopUp = () => {
     setSelectedDataPlan(value)
     setAmount(chosenData?.amount)
   }
+
 
   return (
     <Container>

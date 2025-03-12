@@ -88,7 +88,6 @@ const Registration = () => {
 
   const handleSubcategoryChange = (e) => {
     setSelectedOptions(e); // Update selected option state
-    console.log("Selected Option:", e);
   };
 
   const handleChangeSubCategory = (event) => {

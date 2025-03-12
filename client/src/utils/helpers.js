@@ -16,3 +16,8 @@ export function formatDate(date, format='DD-MM-YYYY'){
   const formattedDate = moment(date).format(format);
   return formattedDate
 }
+
+export function capitalizeFirstLetter(str) {
+  if (!str) return str; // Handle empty string
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

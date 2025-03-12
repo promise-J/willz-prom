@@ -217,12 +217,23 @@ function VendorDashboard({ handleCloseSidebar }) {
         <div className="w-[100%] bg-gray-400 h-[1px] my-4"></div>
         <DashboardSidebarItem
           handleCloseSidebar={handleCloseSidebar}
+          title="My View"
+          icon={<FaUser color="white" size={22} />}
+          path="/dashboard/vendor"
+        />
+        <DashboardSidebarItem
+          handleCloseSidebar={handleCloseSidebar}
+          title="My Catalog"
+          icon={<FaUser color="white" size={22} />}
+          path="/dashboard/vendor-catalog"
+        />
+        <DashboardSidebarItem
+          handleCloseSidebar={handleCloseSidebar}
           title="Manage Profile"
           icon={<FaUser color="white" size={22} />}
           path="/dashboard/profile"
         />
         
-       
         <button
           onClick={logOut}
           className="text-white mt-2 w-full py-1 rounded-lg border border-white"

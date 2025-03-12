@@ -40,25 +40,6 @@ const ApiSetup = () => {
   };
 };
 
-
-// const CountryApi = () => {
-//   const baseUrl = "https://www.universal-tutorial.com/api/";
-//   const token= import.meta.env.VITE_COUNTRY_TOKEN
-  
-
-//   const fetcherApi = axios.create({
-//     baseURL: baseUrl,
-//     headers: {
-//       'Authorization': `Bearer ${token}`,
-//       'Content-Type': 'application/json'
-//     }
-//   });
-  
-//   return {
-//     get: (endpoint, params) => fetcherApi.get(endpoint, { params }),
-// }
-// }
-
 function reindex(key, arr){
   if(arr.length < 1) return
   const obj = {}
@@ -87,6 +68,6 @@ function formatDate(createdAt) {
 }
 
 
+
 export default ApiSetup;
 export  { reindex, formatDate};
-

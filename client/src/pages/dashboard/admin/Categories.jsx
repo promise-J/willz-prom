@@ -9,20 +9,32 @@ import toast from "react-hot-toast";
 
 const initialCategory = {
     name: '',
+    categoryType: '',
     categories: [],
     _id: ''
 }
 
 const Categories = () => {
   const [categoryName, setCategoryName] = useState("");
+  const [categoryType, setCategoryType] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
 
   const [editCategory, setEditCategory] = useState(initialCategory)
+  const [editCategoryStatus, setEditCategoryStatus] = useState(false)
 
 
   const api = ApiSetup();
+
+  useEffect(()=>{
+    if(!editCategoryStatus){
+      setCategoryName('')
+      setCategoryType('')
+      setSubCategory('')
+      setSubCategories([])
+    }
+  },[editCategoryStatus])
 
   const fetchCategories = async () => {
     try {
@@ -36,9 +48,13 @@ const Categories = () => {
   async function handleAddCategory(e) {
     e.preventDefault()
     try {
+      if(!categoryName || !subCategories){
+        return toast.error("Please provide a category name, subcategories and category type")
+      }
         const data = {
             name: categoryName,
-            categories: subCategories
+            categories: subCategories,
+            categoryType
         }
     
         const res = editCategory?._id ? await api.put(`categories/category/${editCategory?._id}`, data) : await api.post('categories/category', data)
@@ -55,6 +71,7 @@ const Categories = () => {
         }
         setEditCategory(initialCategory)
         setCategoryName('')
+        setCategoryType('')
         setSubCategories([])
         setSubCategory('')
     } catch (error) {
@@ -114,12 +131,14 @@ const Categories = () => {
   }
 
   function handleLoadEditCategory(category){
-    setEditCategory({name: category.name, categories: category.categories, _id: category._id})
+    setEditCategoryStatus(true)
+    setEditCategory({name: category.name, categories: category.categories, _id: category._id, categoryType: category.categoryType})
   }
 
   useEffect(()=>{
     setCategoryName(editCategory.name)
     setSubCategories(editCategory.categories)
+    setCategoryType(editCategory.categoryType)
   },[editCategory])
 
   useEffect(() => {
@@ -131,20 +150,22 @@ const Categories = () => {
       <h1>Manage Categories</h1>
       <div className="">
         <div className="md:w-1/2 mx-auto flex flex-col py-1 mb-10">
+       {editCategoryStatus && <button onClick={()=> setEditCategoryStatus(false)} className="bg-blue-900 text-white py-1 rounded-lg animate-pulse">Add Category</button>}
           <input
             type="text"
             value={categoryName}
             placeholder="Name of category"
             onChange={(e) => setCategoryName(e.target.value)}
-            className="border w-full mt-4 py-1 px-2 outline-none rounded-lg"
+            className="border w-full mt-4 py-1 px-2 rounded-lg"
           />
           <input
             type="text"
             value={subCategory}
+            required
             placeholder="Name of sub category"
             onKeyDown={handleKeyDownSubCategory}
             onChange={handleAddNewSubCategory}
-            className="border w-full mt-4 py-1 px-2 outline-none rounded-lg"
+            className="border w-full mt-4 py-1 px-2 rounded-lg"
           />
           {subCategories.length > 0 && (
             <div className="border-x-gray-50 border-2 mt-3 py-2 px-2 flex flex-wrap overflow-x-auto wd-[280px] mdg:w-[530px] gap-3">
@@ -159,8 +180,13 @@ const Categories = () => {
               ))}
             </div>
           )}
+          <select name="" onChange={(e)=> setCategoryType(e.target.value)} value={categoryType} id="" className="border rounded-lg py-2 mt-3">
+            <option value="">Select the category type</option>
+            <option value="product">Product</option>
+            <option value="service">Service</option>
+          </select>
           <button onClick={handleAddCategory} className="bg-blue-900 text-white py-1 rounded-md mt-4">
-            Create Category
+          {editCategoryStatus ? "Edit Category" : "Create Category"}
           </button>
         </div>
         <DashboardTable>
@@ -169,6 +195,7 @@ const Categories = () => {
               <th className="px-4 py-2 border">S/N</th>
               <th className="px-4 py-2 border">Date</th>
               <th className="px-4 py-2 border">Name</th>
+              <th className="px-4 py-2 border">Type</th>
               <th className="px-4 py-2 border">Categories</th>
               <th className="px-4 py-2 border">Action</th>
             </tr>
@@ -180,6 +207,7 @@ const Categories = () => {
                   <td className="px-4 py-2 border">{index}</td>
                   <td className="px-4 py-2 border">{formatDate(row.createdAt)}</td>
                   <td className="px-4 py-2 border">{row.name}</td>
+                  <td className="px-4 py-2 border">{row.categoryType}</td>
                   <td className="px-4 py-2 border">{row.categories[0]}...({row.categories.length})</td>
                   <td className="px-4 py-2 border">
                     <div className="flex gap-3">

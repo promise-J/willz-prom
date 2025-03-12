@@ -31,6 +31,9 @@ import Profile from "./pages/dashboard/Profile";
 import Registration from "./pages/auth/Registration";
 import AboutPage from "./pages/landing/About";
 import ContactPage from "./pages/landing/Contact";
+import VendorHome from "./pages/vendor/VendorHome";
+import VendorCatalog from "./pages/vendor/VendorCatalog";
+import VendorEditCatalog from "./pages/vendor/VendorEditCatalog";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -97,6 +100,9 @@ function App() {
           <Route path="local-dish" element={<LocalDish />} />
           <Route path="classic-dish" element={<ClassicDish />} />
           <Route path="conventional-dish" element={<ConventionalDish />} />
+          <Route path="vendor" element={<VendorHome />} />
+          <Route path="vendor-catalog" element={<VendorCatalog />} />
+          <Route path="vendor-catalog/:id" element={<VendorEditCatalog />} />
           <Route path="categories">
           <Route index element={<Categories />} />
           </Route>

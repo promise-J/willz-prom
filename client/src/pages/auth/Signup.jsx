@@ -122,7 +122,6 @@ const Signup = () => {
 
   const handleSubcategoryChange = (e) => {
     setSelectedOptions(e.value); // Update selected option state
-    console.log('Selected Option:', e.value);
   };
 
   const handleChangeSubCategory = (event) => {

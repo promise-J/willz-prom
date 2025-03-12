@@ -35,6 +35,18 @@ export const VtuProvider = ({ children }) => {
       console.log(error);
     }
   }
+
+  async function vtuData() {
+    try {
+      const res = await axios.get(
+         `https://vtu.ng/wp-json/api/v1/data?username=${VTU_USERNAME}&password=${VTU_PASSWORD}`
+        // `https://vtu.ng/wp-json/api/v1/balance?username=${VTU_USERNAME}&password=${VTU_PASSWORD}`
+      );
+      return res?.data
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const purchaseAirtime = async ({phone, network, amount, metadata}) => {
     const trxData = {
         userId: userInfo?._id,
@@ -208,6 +220,7 @@ export const VtuProvider = ({ children }) => {
         purchaseCable,
         purchaseElectricity,
         vtuBalance,
+        vtuData
       }}
     >
       {children}
