@@ -31,9 +31,13 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     const res = await api.post("users/login", body);
     const token = res?.data.data?.message
-    localStorage.setItem('app-ser-token', token)
     setIsLoading(false);
-    return res;
+    if(token){
+      localStorage.setItem('app-ser-token', token)
+      return res;
+    }else{
+      return res
+    }
   };
 
   const signinWithGoogle = async (body) => {

@@ -27,20 +27,20 @@ const Registration = () => {
   const api = ApiSetup();
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('app-ser-token')
+  const token = localStorage.getItem("app-ser-token");
 
   const { setUserType, userType, isLoading } = useAuth();
   const { setAppLoading } = useModal();
 
   const handleRegiserUser = async () => {
     try {
-      const selOptions = selectedOptions.map(op=> op.value)
+      const selOptions = selectedOptions.map((op) => op.value);
 
       const payload = {
         email,
         userType,
         category: selectedCategory,
-        subcategories: selOptions
+        subcategories: selOptions,
       };
 
       setAppLoading(true);
@@ -49,8 +49,8 @@ const Registration = () => {
       setAppLoading(false);
       const error = res?.data?.data?.error || "";
       if (error == "User does not exist. Please register!") {
-        const error = 'User does not exist. Please register!'
-        toast.error(error, {position: "top-right"})
+        const error = "User does not exist. Please register!";
+        toast.error(error, { position: "top-right" });
         return navigate("/sign-up");
       }
       if (res?.data?.success) {
@@ -78,11 +78,11 @@ const Registration = () => {
     fetchCategories();
   }, []);
 
-  useEffect(()=>{
-      if(token){
-        navigate('/dashboard')
-      }
-    },[token])
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [token]);
 
   function handleSelectedCategory(e) {
     const { value } = e.target;
@@ -97,6 +97,9 @@ const Registration = () => {
     setSelectedOptions(e); // Update selected option state
   };
 
+  const handleToggle = (choice) => {
+    setUserType(choice); // Update state when a choice is made
+  };
 
   return (
     <div>
@@ -106,7 +109,7 @@ const Registration = () => {
           <label htmlFor="" className="ml-2">
             Sign up as
           </label>
-          <div className="flex p-2 gap-2">
+          {/* <div className="flex p-2 gap-2">
             <div
               onClick={() => setUserType("vendor")}
               className={`flex-1 gap-2 flex justify-center border px-2 py-1 rounded-lg cursor-pointer ${
@@ -114,10 +117,6 @@ const Registration = () => {
               }`}
             >
               <label htmlFor="">Vendor</label>
-              {/* <input type="radio" name="user-type" onChange={(e)=>{
-                setUserType(e.target.value)
-              } 
-              } value='vendor' id="" /> */}
             </div>
             <div
               onClick={() => setUserType("client")}
@@ -126,9 +125,31 @@ const Registration = () => {
               }`}
             >
               <label htmlFor="">Client</label>
-              {/* <input type="radio" name="user-type" onChange={(e)=> {
-                setUserType(e.target.value)
-              }} value='client' id="" /> */}
+            </div>
+          </div> */}
+          <div className="flex border-2 border-gray-300 rounded-full overflow-hidden">
+            {/* Business Button */}
+            <div
+              className={`flex-1 py-2 text-center font-semibold cursor-pointer transition-all duration-300 ${
+                userType === "vendor"
+                  ? "bg-blue-900 text-white"
+                  : "bg-white text-black"
+              }`}
+              onClick={() => handleToggle("vendor")}
+            >
+              Vendor
+            </div>
+
+            {/* Personal Button */}
+            <div
+              className={`flex-1 py-2 text-center font-semibold cursor-pointer transition-all duration-300 ${
+                userType === "client"
+                  ? "bg-blue-900 text-white"
+                  : "bg-white text-black"
+              }`}
+              onClick={() => handleToggle("client")}
+            >
+              Client
             </div>
           </div>
         </div>

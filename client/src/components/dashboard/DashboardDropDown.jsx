@@ -36,7 +36,7 @@ const DashboardDropDown = ({ setShowSidebar, showSidebar }) => {
               className="h-8 rounded-full border-2 border-gray-300 cursor-pointer"
               alt="profile image"
               referrerPolicy="no-referrer"
-              src="https://lh3.googleusercontent.com/a/ACg8ocKEiv_NYOP4ulsGCZBsLhTFMWZZqww9v08BUY_bfEHp81RlfNsN"
+              src={userInfo?.image?.imageUrl}
             />
           ) : (
             <img

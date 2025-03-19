@@ -3,7 +3,6 @@ import ApiSetup from '../../utils/ApiSetup';
 import { PaystackButton } from "react-paystack"
 
 const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => {
-  const [loading, setLoading] = useState(false);
   const api = ApiSetup()
 
 
@@ -12,16 +11,19 @@ const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => 
     amount: amount || 3000,
     metadata: metadata,
     publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-    text: "Pay Now",
+    text: "Fund Account",
     onSuccess: (response) =>{
         const redirect_url = response?.redirecturl
-        if(response.status == 'success'){
-          console.log({response})
-            handleSubmit(response)
-            // window.location.href = redirect_url
-        } 
+        if(response.status == 'success' && redirect_url){
+          console.log(response, redirect_url)
+            // handleSubmit(response)
+            window.location.href = redirect_url
+        }else{
+          console.log('something went wrong')
+        }
     },
     onClose: () => alert("Wait! Don't leave :("),
+    onerror: ()=> console.log('error is here')
   }
 
   return (

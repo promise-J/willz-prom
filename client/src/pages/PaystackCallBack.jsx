@@ -21,12 +21,12 @@ const PaystackCallBack = () => {
         },
       });
     //   setAppLoading(false)
-      console.log({ res: res?.data?.status });
+      console.log({ res: res?.data });
       if(!res?.data?.status){
         return toast.error("We couldn't validate your payment. Please try again later.")
       }
       toast.success('Payment successful')
-      navigate('/dashboard')
+      // navigate('/dashboard')
     }
     verifyPayment();
   }, [searchParams]);

@@ -14,13 +14,16 @@ const VendorCatalog = () => {
 
   const [catalogs, setCatalogs] = useState([]);
 
+  console.log(userInfo?._id,'the id')
   useEffect(() => {
     async function getVendorCatalogs() {
       const res = await api.get(`catalogs/catalog?vendorId=${userInfo?._id}`);
       setCatalogs(res?.data?.data?.message);
     }
-    getVendorCatalogs();
-  }, []);
+    if(userInfo?._id){
+        getVendorCatalogs();
+    }
+  }, [userInfo]);
 
   return (
     <Container>
