@@ -43,7 +43,7 @@ const PaystackCallBack = () => {
       console.log({ res: res?.data, trxData });
 
       if(res?.data?.data?.status == 'success'){
-        const fundRes = await axios.put('users/fund-account', {headers: {
+        const fundRes = await axios.put('https://app-sar.onrender.com/api/users/fund-account', {headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }}, trxData)
