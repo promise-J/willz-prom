@@ -11,11 +11,11 @@ const PaystackCallBack = () => {
   const navigate = useNavigate()
   const { userInfo } = useAuth();
   const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  const trxref = searchParams.get("trxref");
+  const reference = searchParams.get("reference");
 
   useEffect(() => {
-    const trxref = searchParams.get("trxref");
-    const reference = searchParams.get("reference");
-    const token = searchParams.get("token");
 
     async function verifyPayment() {
     //   setAppLoading(true)
@@ -48,7 +48,7 @@ const PaystackCallBack = () => {
           'Content-Type': 'application/json'
         }}, trxData)
         .put('users/fund-account', trxData)
-        
+
         console.log({fundRes: fundRes?.data})
         if(fundRes?.data?.success){
           toast.success(fundRes?.data?.data?.message)
