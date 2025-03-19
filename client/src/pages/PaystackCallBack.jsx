@@ -55,7 +55,7 @@ const PaystackCallBack = () => {
       }
     }
     verifyPayment();
-  }, [searchParams]);
+  }, [searchParams, userInfo]);
 
   return (
     <div>

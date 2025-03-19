@@ -10,14 +10,14 @@ async function auth(req, res, next) {
     if (!authHeader) {
       return res.status(401).json({
         success: false,
-        error: "Please provide a valid token to proceed (1)",
+        error: "Please provide a valid token to proceed",
       });
     }
 
     if(authHeader.split(" ").filter(item => item !== 'null').length < 2){
       return res.status(401).json({
         success: false,
-        error: "Please provide a valid token to proceed (2)",
+        error: "Please provide a valid token to proceed",
       });
     }
 
