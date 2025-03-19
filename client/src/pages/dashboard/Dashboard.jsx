@@ -7,14 +7,22 @@ import Container from '../../components/Container'
 import DashboardTable from '../../components/utils/DashboardTable'
 import { formatNumberWithCommas } from '../../utils/helpers'
 import ApiSetup, { formatDate } from '../../utils/ApiSetup'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useVtu } from '../../context/VtuContext'
 
 const Dashboard = () => {
   const {userInfo} = useAuth()
+  const {transactionData} = useVtu()
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [filter, setFilter] = useState("");
   const [transactions, setTransactions] = useState([])
   const api = ApiSetup()
+  const navigate = useNavigate()
+
+
+  const [searchParams] = useSearchParams();
+  const fundWalletKey = searchParams.get("fundwallet");
 
   // Filter data based on the filter text
   const filteredData = transactions.filter((item) =>
@@ -27,6 +35,23 @@ const Dashboard = () => {
     getTransactions()
   },[userInfo])
 
+  useEffect(()=>{
+    async function fundWallet(){
+      try {
+        const res = await api.put('users/fund-account', transactionData)
+        if(res?.data?.success){
+          window.location.href = '/dashboard'
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    if(fundWalletKey){
+      fundWallet()
+    }
+
+  },[fundWalletKey, transactionData, userInfo])
+
   async function getTransactions(){
     try {
       const res = await api.get(`transactions/get-transactions?userId=${userInfo?._id}`)
@@ -36,7 +61,6 @@ const Dashboard = () => {
     }
   }
 
-  console.log(transactions[0])
   // Calculate total number of pages
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 

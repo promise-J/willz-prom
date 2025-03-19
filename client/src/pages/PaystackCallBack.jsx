@@ -5,11 +5,13 @@ import { useModal } from "../context/ModalContext";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import { useVtu } from "../context/VtuContext";
 
 const PaystackCallBack = () => {
   const api = ApiSetup();
   const navigate = useNavigate()
   const { userInfo } = useAuth();
+  const { setTransactionData } = useVtu();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const trxref = searchParams.get("trxref");
@@ -43,20 +45,21 @@ const PaystackCallBack = () => {
       console.log({ res: res?.data, trxData });
 
       if(res?.data?.data?.status == 'success'){
-        const fundRes = await axios.put('https://app-sar.onrender.com/api/users/fund-account', {headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }}, trxData)
-        .put('users/fund-account', trxData)
+          setTransactionData(trxData)
+          return navigate('/dashboard?fundwallet=yes')
+        // const fundRes = await axios.put('https://app-sar.onrender.com/api/users/fund-account', {headers: {
+        //   'Authorization': `Bearer ${token}`,
+        //   'Content-Type': 'application/json'
+        // }}, trxData)
+        // .put('users/fund-account', trxData)
 
-        console.log({fundRes: fundRes?.data})
-        if(fundRes?.data?.success){
-          toast.success(fundRes?.data?.data?.message)
-          return navigate('/dashboard')
-        }else{
-          toast.error(fundRes?.data?.data?.error)
-          return navigate('/dashboard')
-        }
+        // console.log({fundRes: fundRes?.data})
+        // if(fundRes?.data?.success){
+        //   return navigate('/dashboard')
+        // }else{
+        //   toast.error(fundRes?.data?.data?.error)
+        //   return navigate('/dashboard')
+        // }
       }else{
         return toast.error("We couldn't validate your payment. Please try again later.")
       }

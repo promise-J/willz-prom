@@ -10,6 +10,7 @@ export const VtuProvider = ({ children }) => {
   const api = ApiSetup();
   const {userInfo} = useAuth()
   const [vtuBalance, setVtuBalance] = useState(null);
+  const [transactionData, setTransactionData] = useState(null);
   const VTU_PASSWORD = import.meta.env.VITE_VTU_PASSWORD;
   const VTU_USERNAME = import.meta.env.VITE_VTU_USERNAME;
 
@@ -221,7 +222,9 @@ export const VtuProvider = ({ children }) => {
         purchaseCable,
         purchaseElectricity,
         vtuBalance,
-        vtuData
+        vtuData,
+        setTransactionData,
+        transactionData
       }}
     >
       {children}
