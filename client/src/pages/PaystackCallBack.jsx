@@ -15,6 +15,7 @@ const PaystackCallBack = () => {
   useEffect(() => {
     const trxref = searchParams.get("trxref");
     const reference = searchParams.get("reference");
+    const token = searchParams.get("token");
 
     async function verifyPayment() {
     //   setAppLoading(true)
@@ -40,8 +41,14 @@ const PaystackCallBack = () => {
 
 
       console.log({ res: res?.data, trxData });
+
       if(res?.data?.data?.status == 'success'){
-        const fundRes = await api.put('users/fund-account', trxData)
+        const fundRes = await axios.put('users/fund-account', {headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }}, trxData)
+        .put('users/fund-account', trxData)
+        
         console.log({fundRes: fundRes?.data})
         if(fundRes?.data?.success){
           toast.success(fundRes?.data?.data?.message)
@@ -54,8 +61,10 @@ const PaystackCallBack = () => {
         return toast.error("We couldn't validate your payment. Please try again later.")
       }
     }
-    verifyPayment();
-  }, [searchParams, userInfo]);
+    if(token){
+      verifyPayment();
+    }
+  }, [searchParams, userInfo, token]);
 
   return (
     <div>
