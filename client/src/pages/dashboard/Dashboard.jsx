@@ -52,7 +52,7 @@ const Dashboard = () => {
   };
 
   const displayBalance = ()=>{
-    return formatNumberWithCommas(userInfo?.balance)
+    return formatNumberWithCommas(userInfo?.balance) || 0
   }
 
   return (
