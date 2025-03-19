@@ -106,7 +106,7 @@ function App() {
           <Route path="categories">
             <Route index element={<Categories />} />
           </Route>
-          <Route path="/paystack">
+          <Route path="paystack">
             <Route path="paystack-callback" element={<PaystackCallBack />} />
           </Route>
         </Route>
