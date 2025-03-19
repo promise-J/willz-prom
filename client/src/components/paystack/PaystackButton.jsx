@@ -4,6 +4,7 @@ import { PaystackButton } from "react-paystack"
 
 const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => {
   const api = ApiSetup()
+  const token = localStorage.getItem('app-ser-token')
 
 
   const componentProps = {
@@ -20,7 +21,7 @@ const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => 
             const urlWithToken = new URL(redirect_url, window.location.href);
             urlWithToken.searchParams.append("token", token);
             window.location.href = urlWithToken.toString();
-            
+
             // window.location.href = redirect_url
         }else{
           console.log('something went wrong')
