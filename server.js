@@ -13,7 +13,14 @@ const mongoURL = process.env.MONGODB_URL;
 
 const app = express()
 
-app.use(cors())
+const corsOptions = {
+  origin: 'https://app-sar.onrender.com/', // Allow this specific origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // You can specify allowed methods here
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+};
+
+// Use CORS with the specified options
+app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "client", "dist")));
@@ -25,22 +32,6 @@ app.use("/api", router);
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
-
-// const url = 'https://mypayconnect.com/api/get/network/';
-// const token = 'abffujkjfiejifuijfueiiafuioeu;iouf';
-
-// axios.get(url, {
-//   headers: {
-//     'Authorization': `Token ${token}`,
-//     'Content-Type': 'application/json'
-//   }
-// })
-// .then(response => {
-//   console.log('Response:', response.data);
-// })
-// .catch(error => {
-//   console.error('Error:', error);
-// });
 
 
 app.listen(port, async () => {
