@@ -51,6 +51,7 @@ function reindex(key, arr){
 
 function formatDate(createdAt) {
   const date = new Date(createdAt);
+  console.log(date)
   
   // Hour and minute in 12-hour format with AM/PM
   const time = date.toLocaleString('en-US', {

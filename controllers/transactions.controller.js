@@ -10,6 +10,14 @@ class PayConnectController extends BaseController{
         }
         return BaseController.sendSuccessResponse(res, createTransaction.data)
     }
+    async getTransactions(req, res){
+        const transactionService = new TransactionService()
+        const getTransactions = await transactionService.getTransactions(req, res)
+        if(!getTransactions.success){
+            return BaseController.sendFailedResponse(res, getTransactions.data)
+        }
+        return BaseController.sendSuccessResponse(res, getTransactions.data)
+    }
 }
 
 module.exports = PayConnectController

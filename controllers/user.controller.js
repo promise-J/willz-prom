@@ -42,6 +42,14 @@ class UserController extends BaseController{
         }
         return BaseController.sendSuccessResponse(res, getUser.data)
     }
+    async fundAccount(req, res){
+        const userService = new UserService()
+        const fundAccount = await userService.fundAccount(req, res)
+        if(!fundAccount.success){
+            return BaseController.sendFailedResponse(res, fundAccount.data)
+        }
+        return BaseController.sendSuccessResponse(res, fundAccount.data)
+    }
     async registerUser(req, res){
         const userService = new UserService()
         const registerUser = await userService.registerUser(req, res)

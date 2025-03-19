@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const transactionSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      // ref: "User",
       required: true,
     },
     type: {
       type: String,
-      enum: ["airtime", "data", "cable", "electricity", "vendor"],
+      enum: ["airtime", "data", "cable", "electricity", "vendor", "wallet"],
       required: true,
     },
     amount: { type: Number, required: true, trim: true },

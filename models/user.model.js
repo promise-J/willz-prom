@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
     verification_code: {
       type: String,
     },
-    rollover_balance: {
+    balance: {
       type: Number,
       default: 0,
     },

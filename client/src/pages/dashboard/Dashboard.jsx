@@ -1,24 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import DashboardHeader from '../../components/dashboard/DashboardHeader'
 import { dashboardData } from '../../components/utils/constants'
 import Pagination from '../../components/utils/Pagination'
 import Container from '../../components/Container'
 import DashboardTable from '../../components/utils/DashboardTable'
+import { formatNumberWithCommas } from '../../utils/helpers'
+import ApiSetup, { formatDate } from '../../utils/ApiSetup'
 
 const Dashboard = () => {
   const {userInfo} = useAuth()
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [filter, setFilter] = useState("");
+  const [transactions, setTransactions] = useState([])
+  const api = ApiSetup()
 
   // Filter data based on the filter text
-  const filteredData = dashboardData.filter((item) =>
+  const filteredData = transactions.filter((item) =>
     Object.values(item).some((val) =>
       val.toString().toLowerCase().includes(filter.toLowerCase())
     )
   );
 
+  useEffect(()=>{
+    getTransactions()
+  },[userInfo])
+
+  async function getTransactions(){
+    try {
+      const res = await api.get(`transactions/get-transactions?userId=${userInfo?._id}`)
+      res?.data?.success ? setTransactions(res?.data?.data?.message) : setTransactions([])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log(transactions[0])
   // Calculate total number of pages
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
@@ -33,6 +51,9 @@ const Dashboard = () => {
     setCurrentPage(newPage);
   };
 
+  const displayBalance = ()=>{
+    return formatNumberWithCommas(userInfo?.balance)
+  }
 
   return (
     <Container>
@@ -44,11 +65,11 @@ const Dashboard = () => {
         <div className='flex md:gap-10 gap-4 px-2 md:px-[35px] py-4 md:flex-row flex-col'>
           <div className='flex-1 bg-gray-100 hover:bg-blue-50 cursor-pointer p-5 flex flex-col gap-4'>
             <h2 className='text-lg'>Wallet</h2>
-            <p className='text-[30px]'>#3,000</p>
+            <p className='text-[30px]'>{displayBalance()}</p>
           </div>
           <div className='flex-1 bg-gray-100 hover:bg-blue-50 cursor-pointer p-5 flex flex-col gap-4'>
             <h2 className='text-lg'>Transaction</h2>
-            <p className='text-[30px]'>4</p>
+            <p className='text-[30px]'>{transactions.length}</p>
           </div>
         </div>
         <h2 className='ps-[35px] py-3'>Recent Wallet Funding</h2>
@@ -59,19 +80,19 @@ const Dashboard = () => {
             <th className="px-4 py-2 border">Reference</th>
             <th className="px-4 py-2 border">Date</th>
             <th className="px-4 py-2 border">Amount</th>
-            <th className="px-4 py-2 border">Curr. balance</th>
-            <th className="px-4 py-2 border">Method</th>
+            <th className="px-4 py-2 border">Status</th>
+            <th className="px-4 py-2 border">Type</th>
           </tr>
         </thead>
         <tbody>
-          {currentData.length > 0 ? (
-            currentData.map((row, index) => (
+          {transactions.length > 0 ? (
+            transactions.map((row, index) => (
               <tr key={index} className="hover:bg-blue-50">
-                <td className="px-4 py-2 border">{row.reference}</td>
-                <td className="px-4 py-2 border">{row.date}</td>
+                <td className="px-4 py-2 border">{row.transaction}</td>
+                <td className="px-4 py-2 border">{formatDate(row.createdAt)}</td>
                 <td className="px-4 py-2 border">{row.amount}</td>
-                <td className="px-4 py-2 border">{row.current_balance}</td>
-                <td className="px-4 py-2 border">{row.method}</td>
+                <td className="px-4 py-2 border">{row.status}</td>
+                <td className="px-4 py-2 border">{row.type}</td>
               </tr>
             ))
           ) : (

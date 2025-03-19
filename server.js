@@ -26,6 +26,22 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
+// const url = 'https://mypayconnect.com/api/get/network/';
+// const token = 'abffujkjfiejifuijfueiiafuioeu;iouf';
+
+// axios.get(url, {
+//   headers: {
+//     'Authorization': `Token ${token}`,
+//     'Content-Type': 'application/json'
+//   }
+// })
+// .then(response => {
+//   console.log('Response:', response.data);
+// })
+// .catch(error => {
+//   console.error('Error:', error);
+// });
+
 
 app.listen(port, async () => {
   console.log(`Server running on ${port}`);

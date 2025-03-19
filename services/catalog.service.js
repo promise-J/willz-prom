@@ -127,7 +127,7 @@ class CatalogService extends BaseService {
           error: "Please provide a vendor id",
         });
       }
-      const allVendorCatalog = await CatalogModel.find({});
+      const allVendorCatalog = await CatalogModel.find({vendor: vendorId});
 
       return BaseService.sendSuccessResponse({ message: allVendorCatalog });
     } catch (error) {

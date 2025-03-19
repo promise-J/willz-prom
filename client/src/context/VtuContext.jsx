@@ -20,6 +20,7 @@ export const VtuProvider = ({ children }) => {
   async function createTransaction(data) {
     try {
       const res = await api.post("transactions/create-transaction", data);
+      return res.data;
     } catch (error) {
       console.log(error);
     }
