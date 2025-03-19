@@ -23,7 +23,7 @@ const PaystackCallBack = () => {
     //   setAppLoading(false)
       console.log({ res: res?.data });
       if(res?.data?.data?.status == 'success'){
-        const fundRes = await api.post('users/fund-wallet', {amount: res?.data?.data?.amount/100})
+        const fundRes = await api.put('users/fund-wallet', {amount: res?.data?.data?.amount/100})
         console.log(fundRes?.data)
       }else{
         return toast.error("We couldn't validate your payment. Please try again later.")
