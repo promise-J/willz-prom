@@ -104,11 +104,11 @@ function App() {
           <Route path="vendor-catalog" element={<VendorCatalog />} />
           <Route path="vendor-catalog/:id" element={<VendorEditCatalog />} />
           <Route path="categories">
-          <Route index element={<Categories />} />
+            <Route index element={<Categories />} />
           </Route>
-        </Route>
-        <Route path="/paystack">
-          <Route path="paystack-callback" element={<PaystackCallBack />} />
+          <Route path="/paystack">
+            <Route path="paystack-callback" element={<PaystackCallBack />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
