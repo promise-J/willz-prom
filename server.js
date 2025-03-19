@@ -14,7 +14,7 @@ const mongoURL = process.env.MONGODB_URL;
 const app = express()
 
 const corsOptions = {
-  origin: ['https://appser.com.ng', 'https://app-sar.onrender.com'], 
+  origin: ['https://appser.com.ng', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
