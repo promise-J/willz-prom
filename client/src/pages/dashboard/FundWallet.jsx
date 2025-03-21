@@ -8,7 +8,6 @@ const FundWallet = () => {
   const {userInfo} = useAuth()
   const [amount, setAmount] = useState('');
   
-
   return (
     <Container>
       <div className="bg-red-300d  mt-[70px] w-1/2 mx-auto">
