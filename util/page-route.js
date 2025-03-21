@@ -32,6 +32,8 @@ exports.ROUTE_PAYSTACK_VERIFY_PAYMENT = '/verify-payment'
 
 //payconnect
 exports.ROUTE_PAYCONNECT_GET_NETWORK = '/get/network'
+exports.ROUTE_PAYCONNECT_DATA = '/data'
+exports.ROUTE_PAYCONNECT_AIRTIME = '/airtime'
 
 //email
 exports.ROUTE_SEND_EMAIL = '/send-email'

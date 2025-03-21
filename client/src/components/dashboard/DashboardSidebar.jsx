@@ -68,12 +68,12 @@ function UserDashboard({ handleCloseSidebar }) {
           icon={<MdHome color="white" size={24} />}
           path="/dashboard"
         />
-        {/* <DashboardSidebarItem
+        <DashboardSidebarItem
             handleCloseSidebar={handleCloseSidebar}
             title='Fund Wallet'
             icon={<MdWallet color='white' size={24} />}
             path='/dashboard/fund-wallet'
-           /> */}
+           />
         <div className="w-[100%] bg-gray-400 h-[1px] my-4"></div>
         <DashboardSidebarItem
           title="Airtime Topup"
@@ -151,6 +151,12 @@ function AdminDashboard({ handleCloseSidebar }) {
           icon={<MdHome color="white" size={24} />}
           path="/dashboard"
         />
+           <DashboardSidebarItem
+            handleCloseSidebar={handleCloseSidebar}
+            title='Fund Wallet'
+            icon={<MdWallet color='white' size={24} />}
+            path='/dashboard/fund-wallet'
+           />
         <DashboardSidebarItem
           title="VTU Section"
           icon={<PiBowlFood color="white" size={24} />}
@@ -201,6 +207,12 @@ function VendorDashboard({ handleCloseSidebar }) {
           icon={<MdHome color="white" size={24} />}
           path="/dashboard"
         />
+           <DashboardSidebarItem
+            handleCloseSidebar={handleCloseSidebar}
+            title='Fund Wallet'
+            icon={<MdWallet color='white' size={24} />}
+            path='/dashboard/fund-wallet'
+           />
         <DashboardSidebarItem
           title="VTU Section"
           icon={<PiBowlFood color="white" size={24} />}

@@ -4,12 +4,11 @@ import { PaystackButton } from "react-paystack"
 
 const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => {
   const api = ApiSetup()
-  const token = localStorage.getItem('app-ser-token')
 
 
   const componentProps = {
     email,
-    amount: amount || 3000,
+    amount: amount || 0,
     metadata: metadata,
     publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
     text: "Fund Account",
@@ -19,7 +18,7 @@ const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => 
           console.log(response, redirect_url)
             // handleSubmit(response)
             const urlWithToken = new URL(redirect_url, window.location.href);
-            urlWithToken.searchParams.append("token", token);
+            urlWithToken.searchParams.append("payment", 'appser');
             window.location.href = urlWithToken.toString();
 
             // window.location.href = redirect_url
@@ -32,7 +31,7 @@ const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => 
   }
 
   return (
-    <PaystackButton className='bg-blue-500 text-white py-2 px-4 rounded-lg' {...componentProps} />
+    <PaystackButton className='bg-blue-900 text-white font-bold w-full py-3 rounded-lg mt-10' {...componentProps} />
   );
 };
 

@@ -21,24 +21,25 @@ const DataTopUp = () => {
   const [phone, setPhone] = useState("");
   const [selectedDataPlans, setSelectedDataPlans] = useState([]);
   const [selectedDataPlan, setSelectedDataPlan] = useState("");
+  const [networkId, setNetworkId] = useState("");
 
-  const handleSubmit = async (metadata) => {
-    try {
-      const data = {
-        phone,
-        network: selectedProvider,
-        variation_id: selectedDataPlan,
-        amount,
-        metadata,
-      };
-      const res = await purchaseData(data);
-      if (res?.data?.code == "success") {
-        toast.success("Data purchased successfully");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleSubmit = async (metadata) => {
+  //   try {
+  //     const data = {
+  //       phone,
+  //       network: selectedProvider,
+  //       variation_id: selectedDataPlan,
+  //       amount,
+  //       metadata,
+  //     };
+  //     const res = await purchaseData(data);
+  //     if (res?.data?.code == "success") {
+  //       toast.success("Data purchased successfully");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // useEffect(() => {
   //   const data = dataValues.filter((dv) => dv.network == selectedProvider);
@@ -60,34 +61,63 @@ const DataTopUp = () => {
     setAmount(chosenData?.plan_amount);
   }
 
-  async function testVTU() {
-    setAppLoading(true)
-    const res = await api.get(`vtu/get/network?networkType=${selectedProvider}`);
-    setAppLoading(false)
-    if(res?.data?.success){
-      setSelectedDataPlans(res?.data?.data?.message);
-    }else{
-      setSelectedDataPlans([])
+  // async function testVTU() {
+  //   setAppLoading(true)
+  //   const res = await api.get(`vtu/get/network?networkType=${selectedProvider}`);
+  //   setAppLoading(false)
+  //   if(res?.data?.success){
+  //     setSelectedDataPlans(res?.data?.data?.message);
+  //   }else{
+  //     setSelectedDataPlans([])
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   if(selectedProvider){
+  //     testVTU();
+  //   }
+  // }, [selectedProvider]);
+
+  async function handlePurchaseData(){
+    try {
+      const payload =  {
+        network: handleNetworkIdConvert(),
+        mobile_number: phone,
+        plan: selectedDataPlan
+      }
+      setAppLoading(true)
+      const res = await api.post('vtu/data', payload)
+      setAppLoading(false)
+      console.log(res?.data,'the res data')
+
+      if(res?.data?.success){
+        toast.success('Data purchased successfully')
+      }else{
+        toast.error('An error occurred while purchasing data')
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
-  useEffect(() => {
-    if(selectedProvider){
-      testVTU();
+  function handleNetworkIdConvert(){
+    if(selectedProvider == 'MTN'){
+      return '1'
+    }else if(selectedProvider == 'GLO'){
+      return '2'
+    }else if(selectedProvider == 'AIRTEL'){
+      return '4'
+    }else if(selectedProvider == '9MOBILE'){
+      return '3'
     }
-  }, [selectedProvider]);
+    return '0'
+  }
 
 
   return (
     <Container>
       <h1>Purchase Data</h1>
       <div className="shadow-lg w-full md:w-2/3 mx-auto mt-5 py-4 md:px-3 flex flex-col gap-2 outline-none">
-        {amount > vtuBalance && (
-          <marquee className="text-blue-900" behavior="" direction="">
-            Processing amount #{amount}. We are unable to attend to this amount
-            at the moment.
-          </marquee>
-        )}
         <div className="flex justify-between items-center">
           {selectedProvider && selectedDataPlan && (
             <p className="font-bold text-lg">
@@ -142,13 +172,13 @@ const DataTopUp = () => {
         </div>
         <div>
           {
-          // phone.length == 11 &&
-          //   selectedProvider &&
-          //   selectedDataPlan && 
+          phone.length == 11 &&
+            selectedProvider &&
+            selectedDataPlan && 
             (
               <div>
                 {
-                  true ? 
+                  userInfo?.balance < amount ? 
                   <PaystackButton
                     handleSubmit={()=>{}}
                     data={{
@@ -157,7 +187,7 @@ const DataTopUp = () => {
                       metadata: { phone, amount, email: userInfo?.email },
                     }}
                   /> : 
-                  <button>Pay Now</button>
+                  <button onClick={handlePurchaseData} className="bg-blue-500 text-white py-2 px-4 rounded-lg">Pay Now</button>
                 }
             </div>
             )

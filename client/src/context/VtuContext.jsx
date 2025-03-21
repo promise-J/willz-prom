@@ -14,9 +14,9 @@ export const VtuProvider = ({ children }) => {
   const VTU_PASSWORD = import.meta.env.VITE_VTU_PASSWORD;
   const VTU_USERNAME = import.meta.env.VITE_VTU_USERNAME;
 
-  useEffect(() => {
-    getVtuBalance();
-  }, []);
+  // useEffect(() => {
+  //   getVtuBalance();
+  // }, []);
 
   async function createTransaction(data) {
     try {
@@ -27,16 +27,16 @@ export const VtuProvider = ({ children }) => {
     }
   }
 
-  async function getVtuBalance() {
-    try {
-      const res = await axios.get(
-        `https://vtu.ng/wp-json/api/v1/balance?username=${VTU_USERNAME}&password=${VTU_PASSWORD}`
-      );
-      setVtuBalance(+res.data.data.balance.split(".")[0]);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function getVtuBalance() {
+  //   try {
+  //     const res = await axios.get(
+  //       `https://vtu.ng/wp-json/api/v1/balance?username=${VTU_USERNAME}&password=${VTU_PASSWORD}`
+  //     );
+  //     setVtuBalance(+res.data.data.balance.split(".")[0]);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   async function vtuData() {
     try {
@@ -77,8 +77,8 @@ export const VtuProvider = ({ children }) => {
       return res.data;
     } catch (error) {
       console.log(error);
-      trxData.status = 'failed'
-      createTransaction(trxData)
+      // trxData.status = 'failed'
+      // createTransaction(trxData)
     }
   };
   
@@ -214,7 +214,7 @@ export const VtuProvider = ({ children }) => {
   return (
     <VtuContext.Provider
       value={{
-        getVtuBalance,
+        // getVtuBalance,
         purchaseAirtime,
         purchaseData,
         createTransaction,

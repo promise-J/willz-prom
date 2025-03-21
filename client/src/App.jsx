@@ -89,6 +89,7 @@ function App() {
           {/* All static pages (homepage, about, contact and disclaimer routes here) */}
           <Route index element={<Dashboard />} />
           <Route path="airtime-top-up" element={<AirtimeTopup />} />
+          <Route path="fund-wallet" element={<FundAccount />} />
           <Route path="profile" element={<Profile />} />
           <Route path="data-top-up" element={<DataTopUp />} />
           <Route path="electricity-bill" element={<ElectricityBill />} />
