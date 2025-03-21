@@ -7,6 +7,7 @@ import PaystackButton from "../../components/paystack/PaystackButton";
 const FundWallet = () => {
   const {userInfo} = useAuth()
   const [amount, setAmount] = useState('');
+  
 
   return (
     <Container>
