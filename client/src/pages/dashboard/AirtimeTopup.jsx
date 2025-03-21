@@ -66,11 +66,6 @@ const AirtimeTopup = () => {
       <div className="shadow-lg w-full md:w-2/3 mx-auto mt-5 pb-5 py-2 px-1 md:px-3 flex flex-col gap-4 outline-none">
         <div className="py-1 flex justify-between items-center">
           {selectedProvider && (
-            <p className="font-bold text-lg">
-              You selected: (#400) {selectedProvider}
-            </p>
-          )}
-          {selectedProvider && (
             <img
               className="w-[50px] h-[50px] rounded-full border object-contain"
               src={`/images/${selectedProvider}-logo.png`}
@@ -84,7 +79,7 @@ const AirtimeTopup = () => {
           id=""
           className="py-3 px-2 w-full border border-gray-300 rounded-lg"
         >
-          
+
           <option value="">Select a service provider</option>
           <option value="MTN">MTN</option>
           <option value="GLO">GLO</option>
