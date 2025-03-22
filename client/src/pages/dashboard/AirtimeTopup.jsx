@@ -35,6 +35,9 @@ const AirtimeTopup = () => {
       setAppLoading(false)
 
       if (!res?.data?.success) {
+        setPhone('')
+        setSelectedProvider('')
+        setAmount('')
         return toast.message("An error occurred while purchasing airtime");
       }
 

@@ -21,7 +21,6 @@ const DataTopUp = () => {
   const [phone, setPhone] = useState("");
   const [selectedDataPlans, setSelectedDataPlans] = useState([]);
   const [selectedDataPlan, setSelectedDataPlan] = useState("");
-  const [networkId, setNetworkId] = useState("");
 
   // const handleSubmit = async (metadata) => {
   //   try {
@@ -95,6 +94,10 @@ const DataTopUp = () => {
       }else{
         toast.error('An error occurred while purchasing data')
       }
+      setAmount('')
+      setSelectedProvider('')
+      setSelectedDataPlan('')
+      setPhone('')
     } catch (error) {
       console.log(error)
     }

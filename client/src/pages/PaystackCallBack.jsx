@@ -13,12 +13,15 @@ const PaystackCallBack = () => {
   const { userInfo } = useAuth();
   const { setTransactionData } = useVtu();
   const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
   const trxref = searchParams.get("trxref");
   const reference = searchParams.get("reference");
 
+  const token = localStorage.getItem("app-ser-token");
+
+  console.log({ token });
   useEffect(() => {
     async function verifyPayment() {
+      console.log('called...verify')
     //   setAppLoading(true)
       const res = await axios.get(`https://api.paystack.co/transaction/verify/${trxref}`, {
         headers: {
