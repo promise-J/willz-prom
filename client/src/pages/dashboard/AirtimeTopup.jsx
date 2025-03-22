@@ -31,6 +31,7 @@ const AirtimeTopup = () => {
       }
       setAppLoading(true)
       const res = await api.post("vtu/airtime", payload);
+      console.log(res.data,'the airtime ')
       setAppLoading(false)
 
       if (!res?.data?.success) {
@@ -39,7 +40,7 @@ const AirtimeTopup = () => {
 
       setPhone('')
       setSelectedProvider('')
-      amount('')
+      setAmount('')
       toast.success("Airtime purchased successfully");
 
     } catch (error) {

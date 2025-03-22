@@ -17,11 +17,11 @@ const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => 
         if(response.status == 'success' && redirect_url){
           console.log(response, redirect_url)
             // handleSubmit(response)
-            const urlWithToken = new URL(redirect_url, window.location.href);
-            urlWithToken.searchParams.append("payment", 'appser');
-            window.location.href = urlWithToken.toString();
+            // const urlWithToken = new URL(redirect_url, window.location.href);
+            // urlWithToken.searchParams.append("payment", 'appser');
+            // window.location.href = urlWithToken.toString();
 
-            // window.location.href = redirect_url
+            window.location.href = redirect_url
         }else{
           console.log('something went wrong')
         }

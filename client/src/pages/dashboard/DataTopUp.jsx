@@ -61,22 +61,22 @@ const DataTopUp = () => {
     setAmount(chosenData?.plan_amount);
   }
 
-  // async function testVTU() {
-  //   setAppLoading(true)
-  //   const res = await api.get(`vtu/get/network?networkType=${selectedProvider}`);
-  //   setAppLoading(false)
-  //   if(res?.data?.success){
-  //     setSelectedDataPlans(res?.data?.data?.message);
-  //   }else{
-  //     setSelectedDataPlans([])
-  //   }
-  // }
+  async function testVTU() {
+    setAppLoading(true)
+    const res = await api.get(`vtu/get/network?networkType=${selectedProvider}`);
+    setAppLoading(false)
+    if(res?.data?.success){
+      setSelectedDataPlans(res?.data?.data?.message);
+    }else{
+      setSelectedDataPlans([])
+    }
+  }
 
-  // useEffect(() => {
-  //   if(selectedProvider){
-  //     testVTU();
-  //   }
-  // }, [selectedProvider]);
+  useEffect(() => {
+    if(selectedProvider){
+      testVTU();
+    }
+  }, [selectedProvider]);
 
   async function handlePurchaseData(){
     try {

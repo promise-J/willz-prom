@@ -18,7 +18,6 @@ const PaystackCallBack = () => {
   const reference = searchParams.get("reference");
 
   useEffect(() => {
-
     async function verifyPayment() {
     //   setAppLoading(true)
       const res = await axios.get(`https://api.paystack.co/transaction/verify/${trxref}`, {
@@ -26,6 +25,7 @@ const PaystackCallBack = () => {
           Authorization: `Bearer ${import.meta.env.VITE_PAYSTACK_SECRET_KEY}`,
         },
       });
+      console.log({ res: res?.data });
     //   setAppLoading(false)
 
     const metadata = res?.data?.data?.metadata
@@ -45,6 +45,7 @@ const PaystackCallBack = () => {
       console.log({ res: res?.data, trxData });
 
       if(res?.data?.data?.status == 'success'){
+        console.log('payment successful', res?.data)
           setTransactionData(trxData)
           return navigate('/dashboard?fundwallet=yes')
         // const fundRes = await axios.put('https://app-sar.onrender.com/api/users/fund-account', {headers: {
