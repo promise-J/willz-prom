@@ -1,6 +1,7 @@
 const { buildEmailTemplate, sendMail } = require("../util/emailService");
 const BaseService = require("./base");
 const { empty } = require("../util");
+const UserModel = require("../models/user.model");
 const axios = require('axios');
 const validateData = require("../util/validate");
 
@@ -8,6 +9,7 @@ class VTUService extends BaseService {
   constructor(){
     super()
   }
+
   async getNetwork(req, res) {
     try {
       const networkType = req.query.networkType
@@ -36,7 +38,7 @@ class VTUService extends BaseService {
   async buyData(req, res) {
     try {
       const post = req.body;
-      const {network, mobile_number, plan} = post
+      const {network, mobile_number, plan, amount} = post
 
       const validateRule = {
         network: "string|required",
@@ -51,6 +53,16 @@ class VTUService extends BaseService {
       const validateResult = validateData(post, validateRule, validateMessage);
       if (!validateResult.success) {
         return BaseService.sendFailedResponse({error: validateResult.data});
+      }
+
+      const user = await UserModel.findOne({_id: req.user.id})
+
+      if(empty(user)){
+        return BaseService.sendFailedResponse({error: 'User not found'})
+      }
+
+      if(amount > user.balance){
+        return BaseService.sendFailedResponse({error: 'Insufficient balance'})
       }
 
 
@@ -69,6 +81,8 @@ class VTUService extends BaseService {
         }
       });
       if(response.data.Status == 'successful'){
+        user.balance = Number(user.balance) - Number(amount)
+        await user.save()
         return BaseService.sendSuccessResponse({message: 'You have successfully purchased data'})
       }else{
         return BaseService.sendFailedResponse({error: 'Something went wrong. Please try again later'})
@@ -99,6 +113,15 @@ class VTUService extends BaseService {
         return BaseService.sendFailedResponse({error: validateResult.data});
       }
 
+      const user = await UserModel.findOne({_id: req.user.id})
+      
+      if(empty(user)){
+        return BaseService.sendFailedResponse({error: 'User not found'})
+      }
+
+      if(amount > user.balance){
+        return BaseService.sendFailedResponse({error: 'Insufficient balance'})
+      }
 
       const payload = {
         Ported_number: true,
@@ -117,6 +140,9 @@ class VTUService extends BaseService {
       });
 
       if(!empty(response.data.Status) && response.data.Status === 'successful'){
+        user.balance = Number(user.balance) - Number(amount)
+        await user.save()
+
         return BaseService.sendSuccessResponse({message: 'You have successfully purchased airtime'})
       }else{
         return BaseService.sendFailedResponse({error: 'Something went wrong. Please try again later'})

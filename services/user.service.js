@@ -327,7 +327,7 @@ class UserService extends BaseService {
       }
       await TransactionModel.create(transactionData);
 
-      user.balance = user.balance + post.amount;
+      user.balance = Number(user.balance) + Number(post.amount);
       await user.save();
       return BaseService.sendSuccessResponse({
         message: "Account funded successfully",

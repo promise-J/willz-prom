@@ -3,11 +3,9 @@ import Container from "../../components/Container";
 import ApiSetup from "../../utils/ApiSetup";
 import { useVtu } from "../../context/VtuContext";
 import { useAuth } from "../../context/AuthContext";
-import { dataValues } from "../../utils/vtu-data";
 import PaystackButton from "../../components/paystack/PaystackButton";
 import { formatNumberWithCommas } from "../../utils/helpers";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { useModal } from "../../context/ModalContext";
 
 const DataTopUp = () => {
@@ -15,9 +13,8 @@ const DataTopUp = () => {
 
   const { userInfo } = useAuth();
   const { setAppLoading } = useModal();
-  const { vtuBalance, purchaseData, vtuData } = useVtu();
   const [selectedProvider, setSelectedProvider] = useState("");
-  const [amount, setAmount] = useState(40000);
+  const [amount, setAmount] = useState(0);
   const [phone, setPhone] = useState("");
   const [selectedDataPlans, setSelectedDataPlans] = useState([]);
   const [selectedDataPlan, setSelectedDataPlan] = useState("");
@@ -82,7 +79,8 @@ const DataTopUp = () => {
       const payload =  {
         network: handleNetworkIdConvert(),
         mobile_number: phone,
-        plan: selectedDataPlan
+        plan: selectedDataPlan,
+        amount
       }
       setAppLoading(true)
       const res = await api.post('vtu/data', payload)
