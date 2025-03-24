@@ -15,19 +15,12 @@ const PaystackComponent = ({data:  {email, amount, metadata}, handleSubmit}) => 
     onSuccess: (response) =>{
         const redirect_url = response?.redirecturl
         if(response.status == 'success' && redirect_url){
-          console.log(response, redirect_url)
-            // handleSubmit(response)
-            // const urlWithToken = new URL(redirect_url, window.location.href);
-            // urlWithToken.searchParams.append("payment", 'appser');
-            // window.location.href = urlWithToken.toString();
-
             window.location.href = redirect_url
         }else{
           console.log('something went wrong')
         }
     },
-    onClose: () => alert("Wait! Don't leave :("),
-    onerror: ()=> console.log('error is here')
+    onClose: () => alert("Wait! Don't leave :(")
   }
 
   return (

@@ -85,7 +85,6 @@ const DataTopUp = () => {
       setAppLoading(true)
       const res = await api.post('vtu/data', payload)
       setAppLoading(false)
-      console.log(res?.data,'the res data')
 
       if(res?.data?.success){
         toast.success('Data purchased successfully',{position: 'top-right'})
@@ -138,6 +137,7 @@ const DataTopUp = () => {
             onChange={(e) => setSelectedProvider(e.target.value)}
             name=""
             id=""
+            value={selectedProvider}
             className="py-3 px-2 w-full border mb-3 border-gray-300 rounded-lg"
           >
             <option value="">Select a service provider</option>
@@ -167,6 +167,7 @@ const DataTopUp = () => {
               type="text"
               placeholder="09018283828"
               onChange={(e) => setPhone(e.target.value)}
+              value={phone}
               className="border w-full mt-4 py-2 px-2 outline-none rounded-lg"
             />
           )}

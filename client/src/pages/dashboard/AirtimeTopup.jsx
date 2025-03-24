@@ -18,12 +18,6 @@ const AirtimeTopup = () => {
 
   const handleSubmit = async () => {
     try {
-      // const res = await purchaseAirtime({
-      //   phone,
-      //   network: selectedProvider,
-      //   amount,
-      //   metadata,
-      // });
       const payload = {
         mobile_number: phone,
         network: handleNetworkIdConvert(),
@@ -34,17 +28,13 @@ const AirtimeTopup = () => {
       console.log(res.data,'the airtime ')
       setAppLoading(false)
 
-      if (!res?.data?.success) {
+      if (res?.data?.success) {
         setPhone('')
         setSelectedProvider('')
         setAmount('')
-        return toast.message("An error occurred while purchasing airtime",{position: 'top-right'});
+        return toast.success("Airtime purchased successfully",{position: 'top-right'});
       }
-
-      setPhone('')
-      setSelectedProvider('')
-      setAmount('')
-      toast.success("Airtime purchased successfully",{position: 'top-right'});
+      return toast.error("An error occurred while purchasing airtime",{position: 'top-right'});
 
     } catch (error) {
       console.log("error from transaction", error);
@@ -82,15 +72,18 @@ const AirtimeTopup = () => {
           name=""
           id=""
           className="py-3 px-2 w-full border border-gray-300 rounded-lg"
+          value={selectedProvider}
         >
 
           <option value="">Select a service provider</option>
           <option value="MTN">MTN</option>
           <option value="GLO">GLO</option>
           <option value="AIRTEL">AIRTEL</option>
-          <option value="9-MOBILE">9 MOBILE</option>
+          <option value="9MOBILE">9 MOBILE</option>
         </select>
         <div className="py-1 px-1 md:px-4">
+          {
+            selectedProvider &&
           <input
             onChange={(e) => {
               const value = e.target.value
@@ -99,16 +92,22 @@ const AirtimeTopup = () => {
               };
               setPhone(e.target.value);
             }}
+            value={phone}
             type="tel"
             placeholder="09018283828"
             className="border w-full mt-4 py-2 px-2 outline-none"
           />
+          }
+          {
+            selectedProvider && phone.length == 11 &&
           <input
             onChange={(e) => setAmount(e.target.value)}
             type="text"
             placeholder="50"
+            value={amount}
             className="border w-full mt-4 py-2 px-2 outline-none"
           />
+          }
         </div>
         <div>
           {selectedProvider && amount >= 50 && phone.length == 11 && 

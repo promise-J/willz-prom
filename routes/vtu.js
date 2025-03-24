@@ -8,11 +8,11 @@ router.get(ROUTE_PAYCONNECT_GET_NETWORK, (req, res)=>{
     const vTUController = new VTUController()
     return vTUController.getNetwork(req, res)
 })
-router.post(ROUTE_PAYCONNECT_DATA, (req, res)=>{
+router.post(ROUTE_PAYCONNECT_DATA, [auth],(req, res)=>{
     const vTUController = new VTUController()
     return vTUController.buyData(req, res)
 })
-router.post(ROUTE_PAYCONNECT_AIRTIME, (req, res)=>{
+router.post(ROUTE_PAYCONNECT_AIRTIME, [auth],(req, res)=>{
     const vTUController = new VTUController()
     return vTUController.buyAirtime(req, res)
 })

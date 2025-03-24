@@ -32,7 +32,9 @@ class UserService extends BaseService {
 
       const deviceInfo = getDeviceInfo();
 
-      const userExists = await UserModel.findOne({ email: post.email });
+      const userExists = await UserModel.findOne({
+        $or: [{ email: post.email }, { username: post.username }],
+      });
 
       if (!empty(userExists)) {
         return BaseService.sendFailedResponse({
@@ -283,8 +285,7 @@ class UserService extends BaseService {
   async fundAccount(req) {
     try {
       const post = req.body;
-      const user_id = req.user.id
-      console.log({post})
+      const user_id = req.user.id;
 
       const validateRule = {
         type: "string|required",
@@ -313,10 +314,14 @@ class UserService extends BaseService {
           error: "Something went wrong trying to fetch your account.",
         });
       }
-      
-      const existingTrans = await TransactionModel.findOne({userId: user_id, trxref: post.trxref, transaction: post.transaction})
 
-      if(existingTrans){
+      const existingTrans = await TransactionModel.findOne({
+        userId: user_id,
+        trxref: post.trxref,
+        transaction: post.transaction,
+      });
+
+      if (existingTrans) {
         return BaseService.sendFailedResponse({
           error: "Request to fund has been successful.",
         });
@@ -324,13 +329,12 @@ class UserService extends BaseService {
 
       const transactionData = {
         ...post,
-        userId: user_id
-      }
+        userId: user_id,
+      };
       await TransactionModel.create(transactionData);
 
       user.balance = Number(user.balance) + Number(post.amount);
       await user.save();
-      console.log(user.balance,'the user balance')
       return BaseService.sendSuccessResponse({
         message: "Account funded successfully",
       });

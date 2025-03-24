@@ -18,17 +18,14 @@ const PaystackCallBack = () => {
 
   const token = localStorage.getItem("app-ser-token");
 
-  console.log({ token });
   useEffect(() => {
     async function verifyPayment() {
-      console.log('called...verify')
     //   setAppLoading(true)
       const res = await axios.get(`https://api.paystack.co/transaction/verify/${trxref}`, {
         headers: {
           Authorization: `Bearer ${import.meta.env.VITE_PAYSTACK_SECRET_KEY}`,
         },
       });
-      console.log({ res: res?.data });
     //   setAppLoading(false)
 
     const metadata = res?.data?.data?.metadata
@@ -45,25 +42,10 @@ const PaystackCallBack = () => {
     };
 
 
-      console.log({ res: res?.data, trxData });
 
       if(res?.data?.data?.status == 'success'){
-        console.log('payment successful', res?.data)
           setTransactionData(trxData)
           return navigate('/dashboard?fundwallet=yes')
-        // const fundRes = await axios.put('https://app-sar.onrender.com/api/users/fund-account', {headers: {
-        //   'Authorization': `Bearer ${token}`,
-        //   'Content-Type': 'application/json'
-        // }}, trxData)
-        // .put('users/fund-account', trxData)
-
-        // console.log({fundRes: fundRes?.data})
-        // if(fundRes?.data?.success){
-        //   return navigate('/dashboard')
-        // }else{
-        //   toast.error(fundRes?.data?.data?.error)
-        //   return navigate('/dashboard')
-        // }
       }else{
         return toast.error("We couldn't validate your payment. Please try again later.",{position: 'top-right'})
       }
