@@ -119,11 +119,6 @@ const DataTopUp = () => {
       <h1>Purchase Data</h1>
       <div className="shadow-lg w-full md:w-2/3 mx-auto mt-5 py-4 md:px-3 flex flex-col gap-2 outline-none">
         <div className="flex justify-between items-center">
-          {selectedProvider && selectedDataPlan && (
-            <p className="font-bold text-lg">
-              - ({formatNumberWithCommas(amount)}) {selectedProvider}
-            </p>
-          )}
           {selectedProvider && (
             <img
               className="w-[40px] h-[40px] rounded-full border object-contain"
@@ -157,7 +152,7 @@ const DataTopUp = () => {
               <option value="">Select a plan</option>
               {selectedDataPlans.map((plan) => (
                 <option key={plan?.id} value={plan?.id}>
-                  #{plan?.plan_amount }{"     "}{plan.plan_size}{plan?.plan_Volume}   for   {plan?.month_validate}
+                  {plan.plan_size}{plan?.plan_Volume}   {"   "}{plan?.plan_type} ==  {formatNumberWithCommas(plan?.plan_amount)} ({plan?.month_validate})
                 </option>
               ))}
             </select>

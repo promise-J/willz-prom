@@ -224,6 +224,7 @@ class VTUService extends BaseService {
         plan.plan_amount = Math.round(plan.plan_amount * 100) / 100;
       });
     }
+
     return result;
   }
 }
