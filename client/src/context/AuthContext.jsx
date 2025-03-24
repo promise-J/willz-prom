@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }) => {
           setUserInfo(res?.data?.data?.message);
         } else if (res?.data?.message == "jwt_expired") {
           localStorage.removeItem("app-ser-token");
-          toast.error("Login has expired, kindly log in again!");
+          toast.error("Login has expired, kindly log in again!",{position: 'top-right'});
           navigate("/login");
         }
         //  else {

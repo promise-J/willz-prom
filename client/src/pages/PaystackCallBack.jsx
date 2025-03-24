@@ -65,7 +65,7 @@ const PaystackCallBack = () => {
         //   return navigate('/dashboard')
         // }
       }else{
-        return toast.error("We couldn't validate your payment. Please try again later.")
+        return toast.error("We couldn't validate your payment. Please try again later.",{position: 'top-right'})
       }
     }
     if(token){

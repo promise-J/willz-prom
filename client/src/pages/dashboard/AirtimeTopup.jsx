@@ -38,13 +38,13 @@ const AirtimeTopup = () => {
         setPhone('')
         setSelectedProvider('')
         setAmount('')
-        return toast.message("An error occurred while purchasing airtime");
+        return toast.message("An error occurred while purchasing airtime",{position: 'top-right'});
       }
 
       setPhone('')
       setSelectedProvider('')
       setAmount('')
-      toast.success("Airtime purchased successfully");
+      toast.success("Airtime purchased successfully",{position: 'top-right'});
 
     } catch (error) {
       console.log("error from transaction", error);

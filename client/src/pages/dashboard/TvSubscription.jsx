@@ -24,7 +24,7 @@ const TvSubcription = () => {
     try {
       const res = await purchaseCable({phone, service_id: tv, smartcard_number: cardNo, variation_id: tvPlan, amount, metadata});
       if(res?.data?.code == 'success'){
-        toast.success('Cable purchased successfully')
+        toast.success('Cable purchased successfully',{position: 'top-right'})
       }
     } catch (error) {
       console.log("error from transaction", error);

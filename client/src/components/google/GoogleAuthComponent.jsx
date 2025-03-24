@@ -42,7 +42,7 @@ const GoogleAuthComponent = () => {
           toast.success("You have sign up successfully", {position: 'top-right'});
           return navigate(`/registration?email=${decoded?.email}`);
         } else if (res?.data?.data?.google_type == "login") {
-          toast.success("You have logged in successfully");
+          toast.success("You have logged in successfully", {position: 'top-right'});
           navigate("/dashboard");
         }
       }

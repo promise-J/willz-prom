@@ -35,11 +35,11 @@ const AddCatalogModal = () => {
   async function addCatalog() {
     // console.log({files, images})
     if (files.length < 1){
-      return toast.error("Please enter at least one image");
+      return toast.error("Please enter at least one image",{position: 'top-right'});
     }
 
     if(!catalog.vendor || !catalog.description || !catalog.name || !catalog.price){
-      return toast.error('Please enter the required values')
+      return toast.error('Please enter the required values',{position: 'top-right'})
     }
 
     const imageRes = await uploadMultipleImage(files);

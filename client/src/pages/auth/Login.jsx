@@ -47,12 +47,12 @@ const Login = () => {
       setAppLoading(false)
       setUserType('')
       if(res?.data?.success){
-        toast.success('Logged in successfully.')
+        toast.success('Logged in successfully.',{position: 'top-right'})
         navigate('/dashboard')
       }else{
         console.log(res?.data?.data,'the login error')
         const error = res?.data?.data?.error ? res?.data?.data?.error : 'something went wrong'
-        toast.error(error)
+        toast.error(error,{position: 'top-right'})
       }
     } catch (error) {
       console.log(error)

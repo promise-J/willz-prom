@@ -24,11 +24,11 @@ const VerifyEmail = () => {
       const res = await verifyEmail(payload);
       if (res?.data?.success) {
         const message = res?.data?.data?.message;
-        toast.success(message)
+        toast.success(message,{position: 'top-right'})
         navigate('/login')
       } else {
         const error = res?.data?.data?.error
-        toast.success(error);
+        toast.success(error,{position: 'top-right'});
         navigate('/login')
       }
 

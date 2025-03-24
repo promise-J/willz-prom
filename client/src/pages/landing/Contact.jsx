@@ -26,7 +26,7 @@ const ContactPage = () => {
         setFormData({name: '', email: '', message: ''})
         toast.success(res?.data?.data, {position: 'top-right'})
     }else{
-        toast.error("Email failed to send. Please try again later")
+        toast.error("Email failed to send. Please try again later",{position: 'top-right'})
     }
   };
 

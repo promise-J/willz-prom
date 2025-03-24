@@ -18,7 +18,7 @@ export const VtuProvider = ({ children }) => {
   //   getVtuBalance();
   // }, []);
 
-  
+
   async function createTransaction(data) {
     try {
       const res = await api.post("transactions/create-transaction", data);
@@ -64,13 +64,13 @@ export const VtuProvider = ({ children }) => {
 
     try {
       if (!phone) {
-        return toast.error("Please enter a valid phone number");
+        return toast.error("Please enter a valid phone number",{position: 'top-right'});
       }
       if (!amount) {
-        return toast.error("Please enter a valid amount");
+        return toast.error("Please enter a valid amount",{position: 'top-right'});
       }
       if (!network) {
-        return toast.error("Please enter a valid network");
+        return toast.error("Please enter a valid network",{position: 'top-right'});
       }
       const res = await axios.get(
         `https://vtu.ng/wp-json/api/v1/airtime?username=${VTU_USERNAME}&password=${VTU_PASSWORD}&phone=${phone}&network_id=${network}&amount=${amount}`
@@ -97,13 +97,13 @@ export const VtuProvider = ({ children }) => {
 
     try {
       if (!phone) {
-        return toast.error("Please enter a valid phone number");
+        return toast.error("Please enter a valid phone number",{position: 'top-right'});
       }
       if (!variation_id) {
-        return toast.error("Please enter a valid data plan");
+        return toast.error("Please enter a valid data plan",{position: 'top-right'});
       }
       if (!network) {
-        return toast.error("Please enter a valid network");
+        return toast.error("Please enter a valid network",{position: 'top-right'});
       }
     //   const res = await axios.get(
     //     `https://vtu.ng/wp-json/api/v1/airtime?username=${VTU_USERNAME}&password=${VTU_PASSWORD}&phone=${"08111158225"}&network_id=${"mtn"}&amount=50`
@@ -122,13 +122,13 @@ export const VtuProvider = ({ children }) => {
 
     try {
       if (!service_id) {
-        return toast.error("Please enter a valid service id");
+        return toast.error("Please enter a valid service id",{position: 'top-right'});
       }
       if (!variation_id) {
-        return toast.error("Please enter a valid variation plan");
+        return toast.error("Please enter a valid variation plan",{position: 'top-right'});
       }
       if (!customer_id) {
-        return toast.error("Please enter a valid customer id");
+        return toast.error("Please enter a valid customer id",{position: 'top-right'});
       }
       const res = await axios.get(`https://vtu.ng/wp-json/api/v1/verify-customer?username=${VTU_USERNAME}&password=${VTU_PASSWORD}&customer_id=${customer_id}&service_id=${service_id}&variation_id=${variation_id}`)
       if(res.data.code == 'success'){
@@ -153,16 +153,16 @@ export const VtuProvider = ({ children }) => {
 
     try {
       if (!phone) {
-        return toast.error("Please enter a valid phone number");
+        return toast.error("Please enter a valid phone number",{position: 'top-right'});
       }
       if (!variation_id) {
-        return toast.error("Please enter a valid variation plan");
+        return toast.error("Please enter a valid variation plan",{position: 'top-right'});
       }
       if (!service_id) {
-        return toast.error("Please enter a service id");
+        return toast.error("Please enter a service id",{position: 'top-right'});
       }
       if (!smartcard_number) {
-        return toast.error("Please enter a valid smart card number");
+        return toast.error("Please enter a valid smart card number",{position: 'top-right'});
       }
       
       const res = await axios.get(`https://vtu.ng/wp-json/api/v1/tv?username=${VTU_USERNAME}&password=${VTU_PASSWORD}&phone=${phone}&service_id=${service_id}&smartcard_number=${smartcard_number}&variation_id=${variation_id}`)
@@ -189,13 +189,13 @@ export const VtuProvider = ({ children }) => {
 
     try {
       if (!phone) {
-        return toast.error("Please enter a valid phone number");
+        return toast.error("Please enter a valid phone number",{position: 'top-right'});
       }
       if (!meter_number) {
-        return toast.error("Please enter a valid meter number");
+        return toast.error("Please enter a valid meter number",{position: 'top-right'});
       }
       if (!service_id) {
-        return toast.error("Please enter a valid network");
+        return toast.error("Please enter a valid network",{position: 'top-right'});
       }
       
     //   const res = await axios.get(

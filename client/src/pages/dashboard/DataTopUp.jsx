@@ -88,9 +88,9 @@ const DataTopUp = () => {
       console.log(res?.data,'the res data')
 
       if(res?.data?.success){
-        toast.success('Data purchased successfully')
+        toast.success('Data purchased successfully',{position: 'top-right'})
       }else{
-        toast.error('An error occurred while purchasing data')
+        toast.error('An error occurred while purchasing data',{position: 'top-right'})
       }
       setAmount('')
       setSelectedProvider('')

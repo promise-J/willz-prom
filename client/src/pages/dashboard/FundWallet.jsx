@@ -10,7 +10,7 @@ const FundWallet = () => {
   
   return (
     <Container>
-      <div className="bg-red-300d  mt-[70px] w-1/2 mx-auto">
+      <div className="bg-red-300d  mt-[70px] md:w-1/2 mx-auto">
         <h1 className="text-center text-2xl md:text-3xl">Fund wallet</h1>
         <div className="flex flex-col justify-center gap-3 w-full">
           <label htmlFor="">Enter Amount</label>
@@ -23,12 +23,12 @@ const FundWallet = () => {
               value={amount}
               type="text"
               className="w-full py-2 px-4"
-              placeholder="Enter a valid amount from 200 to 100,000"
+              placeholder="100"
             />
           </div>
         </div>
         {
-          amount > 0 &&
+          amount >= 100 &&
         <PaystackButton
           handleSubmit={() => {}}
           data={{

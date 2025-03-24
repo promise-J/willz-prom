@@ -49,7 +49,7 @@ const Categories = () => {
     e.preventDefault()
     try {
       if(!categoryName || !subCategories){
-        return toast.error("Please provide a category name, subcategories and category type")
+        return toast.error("Please provide a category name, subcategories and category type",{position: 'top-right'})
       }
         const data = {
             name: categoryName,
@@ -60,14 +60,14 @@ const Categories = () => {
         const res = editCategory?._id ? await api.put(`categories/category/${editCategory?._id}`, data) : await api.post('categories/category', data)
         if(!res?.data?.success){
             const error = res?.data?.data?.error || 'Something went wrong. Please try again later.'
-            return toast.error(error)
+            return toast.error(error,{position: 'top-right'})
         }
         if(res?.data?.success){
             const message = res?.data?.data?.message
             if(res?.data?.data?.new){
                 setCategories(res?.data?.data?.new)
             }
-            toast.success(message)
+            toast.success(message,{position: 'top-right'})
         }
         setEditCategory(initialCategory)
         setCategoryName('')
@@ -87,11 +87,11 @@ const Categories = () => {
             console.log({res: res?.data})
             if(!res?.data?.success){
                 const error = res?.data?.data?.error || 'Something went wrong. Please try again later.'
-                return toast.error(error)
+                return toast.error(error,{position: 'top-right'})
             }
             if(res?.data?.success){
                 const message = res?.data?.data?.message
-                toast.success(message)
+                toast.success(message,{position: 'top-right'})
                 const cats = categories.filter(cat=> cat._id != id)
                 console.log(cats)
                 setCategories(cats)
@@ -112,7 +112,7 @@ const Categories = () => {
       if (subCategory.trim()) {
         if (subCategories.includes(subCategory.trim())) {
           setSubCategory("");
-          return toast.error("Already added");
+          return toast.error("Already added",{position: 'top-right'});
         }
         setSubCategories((sub) => [...sub, subCategory.trim()]);
         setSubCategory("");

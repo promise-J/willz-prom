@@ -284,6 +284,7 @@ class UserService extends BaseService {
     try {
       const post = req.body;
       const user_id = req.user.id
+      console.log({post})
 
       const validateRule = {
         type: "string|required",
@@ -329,6 +330,7 @@ class UserService extends BaseService {
 
       user.balance = Number(user.balance) + Number(post.amount);
       await user.save();
+      console.log(user.balance,'the user balance')
       return BaseService.sendSuccessResponse({
         message: "Account funded successfully",
       });
