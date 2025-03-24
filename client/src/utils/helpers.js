@@ -17,3 +17,8 @@ export function capitalizeFirstLetter(str) {
   if (!str) return str; // Handle empty string
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function soundNotification(){
+  const onlineSound = new Audio('/audio/network-status.mp3');
+  onlineSound.play();
+}

@@ -4,7 +4,7 @@ import ApiSetup from "../../utils/ApiSetup";
 import { useVtu } from "../../context/VtuContext";
 import { useAuth } from "../../context/AuthContext";
 import PaystackButton from "../../components/paystack/PaystackButton";
-import { formatNumberWithCommas } from "../../utils/helpers";
+import { formatNumberWithCommas, soundNotification } from "../../utils/helpers";
 import toast from "react-hot-toast";
 import { useModal } from "../../context/ModalContext";
 
@@ -64,6 +64,8 @@ const DataTopUp = () => {
     if(res?.data?.success){
       setSelectedDataPlans(res?.data?.data?.message);
     }else{
+      soundNotification()
+      toast.error('An error occurred while fetching data plans',{position: 'top-right'})
       setSelectedDataPlans([])
     }
   }
@@ -141,7 +143,7 @@ const DataTopUp = () => {
             <option value="AIRTEL">AIRTEL</option>
             <option value="9MOBILE">9 MOBILE</option>
           </select>
-          {selectedProvider && (
+          {selectedProvider && selectedDataPlans.length > 0 && (
             <select
               onChange={handleSelectDataPlan}
               value={selectedDataPlan}

@@ -34,6 +34,7 @@ import ContactPage from "./pages/landing/Contact";
 import VendorHome from "./pages/vendor/VendorHome";
 import VendorCatalog from "./pages/vendor/VendorCatalog";
 import VendorEditCatalog from "./pages/vendor/VendorEditCatalog";
+import NetworkStatus from "./components/utils/NetworkStatus";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -71,6 +72,7 @@ function App() {
   return (
     <div className="min-h-screen ">
       <Toaster />
+      <NetworkStatus />
       {/* Include all modals here */}
       <PageLoader />
       {/* end all modals here */}
