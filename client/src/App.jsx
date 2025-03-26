@@ -35,6 +35,10 @@ import VendorHome from "./pages/vendor/VendorHome";
 import VendorCatalog from "./pages/vendor/VendorCatalog";
 import VendorEditCatalog from "./pages/vendor/VendorEditCatalog";
 import NetworkStatus from "./components/utils/NetworkStatus";
+import AppSerStore from "./pages/store/AppSerStore";
+import AppSerStoreType from "./pages/store/AppSerStoreType";
+import VendorList from "./pages/store/VendorList";
+import VendorDisplayCatalog from "./pages/store/VendorCatalog";
 
 // import Layout from "./layout/Layout";
 // import Homepage from "./pages/Homepage";
@@ -80,6 +84,10 @@ function App() {
         <Route path="/" element={<DefaultLayout />}>
           {/* All static pages (homepage, about, contact and disclaimer routes here) */}
           <Route index element={<Homepage />} />
+          <Route path="app-ser-store" element={<AppSerStore />} />
+          <Route path="app-ser-store/:storeType" element={<AppSerStoreType />} />
+          <Route path="app-ser-store/:storeType/:categoryId" element={<VendorList />} />
+          <Route path="vendor/:vendorId" element={<VendorDisplayCatalog />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="sign-up" element={<Signup />} />

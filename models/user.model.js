@@ -87,7 +87,16 @@ const userSchema = new mongoose.Schema(
     },
     offerType: {
       type: String
-    }
+    },
+    companyName: {
+      type: String
+    },
+    country: {
+      type: String
+    },
+    state: {
+      type: String
+    },
   },
   {
     timestamps: true,

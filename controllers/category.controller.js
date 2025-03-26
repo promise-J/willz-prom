@@ -34,6 +34,14 @@ class CategoryController extends BaseController{
         }
         return BaseController.sendSuccessResponse(res, getAllCategory.data)
     }
+    async getVendorsByCategory(req, res){
+        const categoryService = new CategoryService()
+        const getVendorsByCategory = await categoryService.getVendorsByCategory(req)
+        if(!getVendorsByCategory.success){
+            return BaseController.sendFailedResponse(res, getVendorsByCategory.data)
+        }
+        return BaseController.sendSuccessResponse(res, getVendorsByCategory.data)
+    }
 }
 
 module.exports = CategoryController

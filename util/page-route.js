@@ -19,6 +19,7 @@ exports.ROUTE_IMAGE_UPLOAD_SINGLE = '/image-upload-single'
 
 //category
 exports.ROUTE_CATEGORY = '/category'
+exports.ROUTE_GET_CATEGORY_BY_ID = '/get-cateogory-by-id'
 
 //catalog
 exports.ROUTE_CATALOG = '/catalog'

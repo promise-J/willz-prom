@@ -9,7 +9,9 @@ const categorySchema = new mongoose.Schema(
     },
     categories: [],
     categoryType: {
-      type: String
+      type: String,
+      enum: ['products', 'services'],
+      required: true
     }
   },
   { timestamps: true }

@@ -6,6 +6,7 @@ const validateData = require("../util/validate");
 const { getDeviceInfo } = require("../util/deviceInfo");
 const CategoryModel = require("../models/category.model");
 const TransactionModel = require("../models/transaction.model");
+const RefferalModel = require("../models/referral.model");
 
 class UserService extends BaseService {
   async createUser(req, res) {
@@ -32,6 +33,9 @@ class UserService extends BaseService {
 
       const deviceInfo = getDeviceInfo();
 
+      const refferal = await UserModel.findOne({ username: post.refferal});
+
+
       const userExists = await UserModel.findOne({
         $or: [{ email: post.email }, { username: post.username }],
       });
@@ -45,6 +49,11 @@ class UserService extends BaseService {
       post = { ...post, deviceName: deviceInfo.deviceName };
 
       let newUser = new UserModel(post);
+
+      if(!empty(refferal)){
+        await RefferalModel.create({refferedBy: refferal._id, userId: newUser._id})
+      }
+
       newUser = await newUser.save();
 
       const emailData = {

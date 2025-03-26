@@ -6,10 +6,11 @@ const Pagination = ({
   onPageChange,
   setItemsPerPage,
   itemPerPage,
-  setCurrentPage
+  setCurrentPage,
+  currentData
 }) => {
 
-  
+
   return (
     <div className="flex justify-center items-center space-x-4 mt-6 mb-10">
       <button
@@ -26,9 +27,9 @@ const Pagination = ({
       </span>
       <button
         onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
+        disabled={(currentPage === totalPages || currentData.length < 1)}
         className={`px-2 py-2 bg-blue-900 text-white rounded-md ${
-          currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+          (currentPage === totalPages || currentData.length < 1) ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
         Next

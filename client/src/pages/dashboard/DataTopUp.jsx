@@ -80,16 +80,18 @@ const DataTopUp = () => {
     try {
       const payload =  {
         network: handleNetworkIdConvert(),
-        mobile_number: phone,
+        mobile_number: phone.trim(),
         plan: selectedDataPlan,
-        amount
+        amount: amount.trim()
       }
+
       setAppLoading(true)
       const res = await api.post('vtu/data', payload)
       setAppLoading(false)
 
       if(res?.data?.success){
         toast.success('Data purchased successfully',{position: 'top-right'})
+        window.location.href = '/dashboard'
       }else{
         toast.error('An error occurred while purchasing data',{position: 'top-right'})
       }
@@ -171,7 +173,7 @@ const DataTopUp = () => {
         </div>
         <div>
           {
-          phone.length == 11 &&
+          phone.trim().length == 11 &&
             selectedProvider &&
             selectedDataPlan && 
             (

@@ -19,7 +19,7 @@ const AirtimeTopup = () => {
   const handleSubmit = async () => {
     try {
       const payload = {
-        mobile_number: phone,
+        mobile_number: phone.trim(),
         network: handleNetworkIdConvert(),
         amount,
       }
@@ -32,6 +32,7 @@ const AirtimeTopup = () => {
         setPhone('')
         setSelectedProvider('')
         setAmount('')
+        window.location.href = '/dashboard'
         return toast.success("Airtime purchased successfully",{position: 'top-right'});
       }
       return toast.error("An error occurred while purchasing airtime",{position: 'top-right'});
@@ -99,7 +100,7 @@ const AirtimeTopup = () => {
           />
           }
           {
-            selectedProvider && phone.length == 11 &&
+            selectedProvider && phone.trim().length == 11 &&
           <input
             onChange={(e) => setAmount(e.target.value)}
             type="text"

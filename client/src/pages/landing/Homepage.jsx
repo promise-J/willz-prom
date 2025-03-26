@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaRegCheckCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -14,12 +15,14 @@ const HomePage = () => {
           <p className="text-xl mb-8">
             Top-up data, airtime, electricity bills, TV subscriptions, order food, and book professional services with ease!
           </p>
-          <a
-            href="/sign-up"
+          <Link to="/sign-up">
+          <button
             className="inline-block bg-white text-blue-900 px-8 py-3 text-xl rounded-lg shadow-lg hover:bg-gray-100 transition"
           >
             Get Started
-          </a>
+          </button>
+          </Link>
+          
         </div>
       </section>
 
@@ -47,6 +50,14 @@ const HomePage = () => {
               </p>
             </div>
           </div>
+
+          <Link to="/app-ser-store">
+          <button
+            className="inline-block mt-8 bg-white text-blue-900 px-8 py-3 text-xl rounded-lg shadow-lg hover:bg-gray-100 transition"
+          >
+            View App Ser Store
+          </button>
+          </Link>
         </div>
       </section>
 
@@ -84,11 +95,20 @@ const HomePage = () => {
               </p>
             </div>
           </div>
+          <Link to="/app-ser-store">
+          <button
+            className="inline-block mt-8 bg-white text-blue-900 px-8 py-3 text-xl rounded-lg shadow-lg hover:bg-gray-100 transition"
+          >
+            View App Ser Store
+          </button>
+          </Link>
         </div>
       </section>
 
       <section className="bg-blue-900 h-[100vh] text-white py-20 px-6 md:px-12 relative bg-cover bg-center" style={{ backgroundImage: "url('/images/hero.jpg')" }}>
-        <div className="absolute inset-0 bg-blue-900 opacity-50"></div> {/* Dark overlay for text contrast */}
+        <div className="absolute inset-0 bg-blue-900 opacity-50 flex items-center justify-center">
+      
+        </div>
       </section>
 
       {/* Call to Action Section */}

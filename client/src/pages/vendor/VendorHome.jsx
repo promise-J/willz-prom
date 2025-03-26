@@ -10,7 +10,7 @@ const VendorHome = () => {
       <div className="flex py-2 px-5 justify-between md:items-center md:flex-row flex-col gap-3">
         <img
           className="md:h-[50px] md:w-[50px] h-[30px] w-[30px] rounded-full"
-          src="/images/vendor-logo.png"
+          src={userInfo?.image?.imageUrl}
           alt=""
         />
         <span className="font-bold uppercase">{userInfo?.username}</span>

@@ -5,7 +5,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai"
 import { AiOutlineCheckCircle } from "react-icons/ai"
 import { FaRegUser } from "react-icons/fa";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate, useNavigation, useSearchParams } from "react-router-dom";
 import GoogleAuthComponent from "../../components/google/GoogleAuthComponent";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
@@ -28,6 +28,9 @@ const Signup = () => {
   const { signup, setUserType, userType, isLoading, userInfo } = useAuth();
   const token = localStorage.getItem('app-ser-token')
   const navigate = useNavigate();
+
+  const [searchParams] = new useSearchParams();
+  const refferal = searchParams.get("refferal");
 
 
   useEffect(()=>{
@@ -75,6 +78,7 @@ const Signup = () => {
         password: registerData.password,
         first_name: registerData.first_name,
         last_name: registerData.last_name,
+        refferal: refferal,
       };
       if(!passwordStrength.isStrong){
         return toast.error('Please, enter a strong password', {position: "top-right"})
@@ -114,27 +118,27 @@ const Signup = () => {
     fetchCategories()
   },[])
 
-  function handleSelectedCategory(e){
-    const {value} = e.target
-    setSelectedCategory(value)
-    const selectedCat = categories.find(cat=> cat._id == value)
-    setSelectedSubCategories(selectedCat.categories)
-  }
+  // function handleSelectedCategory(e){
+  //   const {value} = e.target
+  //   setSelectedCategory(value)
+  //   const selectedCat = categories.find(cat=> cat._id == value)
+  //   setSelectedSubCategories(selectedCat.categories)
+  // }
 
-  const handleSubcategoryChange = (e) => {
-    setSelectedOptions(e.value); // Update selected option state
-  };
+  // const handleSubcategoryChange = (e) => {
+  //   setSelectedOptions(e.value); // Update selected option state
+  // };
 
-  const handleChangeSubCategory = (event) => {
-    const options = event.target.options;
-    const values = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        values.push(options[i].value);
-      }
-    }
-    setSelectedSubCategories(values);
-  };
+  // const handleChangeSubCategory = (event) => {
+  //   const options = event.target.options;
+  //   const values = [];
+  //   for (let i = 0; i < options.length; i++) {
+  //     if (options[i].selected) {
+  //       values.push(options[i].value);
+  //     }
+  //   }
+  //   setSelectedSubCategories(values);
+  // };
 
 
   return (

@@ -1,9 +1,10 @@
 const CategoryModel = require("../models/category.model");
+const UserModel = require("../models/user.model");
 const { empty } = require("../util");
 const validateData = require("../util/validate");
 const BaseService = require("./base");
 
-class UtilService extends BaseService {
+class CategoryService extends BaseService {
   async createCategory(req) {
     try {
         const post = req.body;
@@ -84,10 +85,15 @@ class UtilService extends BaseService {
       BaseService.sendFailedResponse(this.server_error_message);
     }
   }
-  async getAllCategory() {
+  async getAllCategory(req) {
     try {
-        
-        const allCategory = await CategoryModel.find({})
+      const filterValue = {}
+        const categoryType = req.query.categoryType
+        if(!empty(categoryType)){
+            filterValue.categoryType = categoryType
+        }
+
+        const allCategory = await CategoryModel.find(filterValue)
 
         return BaseService.sendSuccessResponse({message: allCategory})
 
@@ -96,6 +102,21 @@ class UtilService extends BaseService {
       BaseService.sendFailedResponse(this.server_error_message);
     }
   }
+  async getVendorsByCategory(req) {
+    try {
+      const categoryId = req.params.id
+      if(empty(categoryId)){
+          return BaseService.sendFailedResponse({error: 'Category id is required'})
+      }
+      const vendors = await UserModel.find({ category: categoryId, is_verified: true }).populate('category');
+
+      return BaseService.sendSuccessResponse({message: vendors})
+
+    } catch (error) {
+      console.log(error, "the error");
+      BaseService.sendFailedResponse(this.server_error_message);
+    }
+  }
 }
 
-module.exports = UtilService;
+module.exports = CategoryService;
