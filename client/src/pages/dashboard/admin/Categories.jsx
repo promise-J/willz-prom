@@ -6,13 +6,14 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { LuDelete } from "react-icons/lu";
 import { MdCancel } from "react-icons/md";
 import toast from "react-hot-toast";
+import { BsPlus } from "react-icons/bs";
 
 const initialCategory = {
-    name: '',
-    categoryType: '',
-    categories: [],
-    _id: ''
-}
+  name: "",
+  categoryType: "",
+  categories: [],
+  _id: "",
+};
 
 const Categories = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -21,20 +22,19 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
 
-  const [editCategory, setEditCategory] = useState(initialCategory)
-  const [editCategoryStatus, setEditCategoryStatus] = useState(false)
-
+  const [editCategory, setEditCategory] = useState(initialCategory);
+  const [editCategoryStatus, setEditCategoryStatus] = useState(false);
 
   const api = ApiSetup();
 
-  useEffect(()=>{
-    if(!editCategoryStatus){
-      setCategoryName('')
-      setCategoryType('')
-      setSubCategory('')
-      setSubCategories([])
+  useEffect(() => {
+    if (!editCategoryStatus) {
+      setCategoryName("");
+      setCategoryType("");
+      setSubCategory("");
+      setSubCategories([]);
     }
-  },[editCategoryStatus])
+  }, [editCategoryStatus]);
 
   const fetchCategories = async () => {
     try {
@@ -46,63 +46,74 @@ const Categories = () => {
   };
 
   async function handleAddCategory(e) {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      if(!categoryName || !subCategories){
-        return toast.error("Please provide a category name, subcategories and category type",{position: 'top-right'})
+      if (!categoryName || !subCategories) {
+        return toast.error(
+          "Please provide a category name, subcategories and category type",
+          { position: "top-right" }
+        );
       }
-        const data = {
-            name: categoryName,
-            categories: subCategories,
-            categoryType
+      const data = {
+        name: categoryName,
+        categories: subCategories,
+        categoryType,
+      };
+
+      const res = editCategory?._id
+        ? await api.put(`categories/category/${editCategory?._id}`, data)
+        : await api.post("categories/category", data);
+      if (!res?.data?.success) {
+        const error =
+          res?.data?.data?.error ||
+          "Something went wrong. Please try again later.";
+        return toast.error(error, { position: "top-right" });
+      }
+      if (res?.data?.success) {
+        const message = res?.data?.data?.message;
+        if (res?.data?.data?.new) {
+          setCategories(res?.data?.data?.new);
         }
-    
-        const res = editCategory?._id ? await api.put(`categories/category/${editCategory?._id}`, data) : await api.post('categories/category', data)
-        if(!res?.data?.success){
-            const error = res?.data?.data?.error || 'Something went wrong. Please try again later.'
-            return toast.error(error,{position: 'top-right'})
-        }
-        if(res?.data?.success){
-            const message = res?.data?.data?.message
-            if(res?.data?.data?.new){
-                setCategories(res?.data?.data?.new)
-            }
-            toast.success(message,{position: 'top-right'})
-        }
-        setEditCategory(initialCategory)
-        setCategoryName('')
-        setCategoryType('')
-        setSubCategories([])
-        setSubCategory('')
+        toast.success(message, { position: "top-right" });
+      }
+      setEditCategory(initialCategory);
+      setCategoryName("");
+      setCategoryType("");
+      setSubCategories([]);
+      setSubCategory("");
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   }
 
   async function handleDeleteCategory(id) {
     try {
-        const canDelete = confirm('Are you sure you want to delete this category?')
-        if(canDelete){
-            const res = await api.delete(`categories/category/${id}`)
-            console.log({res: res?.data})
-            if(!res?.data?.success){
-                const error = res?.data?.data?.error || 'Something went wrong. Please try again later.'
-                return toast.error(error,{position: 'top-right'})
-            }
-            if(res?.data?.success){
-                const message = res?.data?.data?.message
-                toast.success(message,{position: 'top-right'})
-                const cats = categories.filter(cat=> cat._id != id)
-                console.log(cats)
-                setCategories(cats)
-            }
-            setEditCategory(initialCategory)
-            setCategoryName('')
-            setSubCategories([])
-            setSubCategory('')
+      const canDelete = confirm(
+        "Are you sure you want to delete this category?"
+      );
+      if (canDelete) {
+        const res = await api.delete(`categories/category/${id}`);
+        console.log({ res: res?.data });
+        if (!res?.data?.success) {
+          const error =
+            res?.data?.data?.error ||
+            "Something went wrong. Please try again later.";
+          return toast.error(error, { position: "top-right" });
         }
+        if (res?.data?.success) {
+          const message = res?.data?.data?.message;
+          toast.success(message, { position: "top-right" });
+          const cats = categories.filter((cat) => cat._id != id);
+          console.log(cats);
+          setCategories(cats);
+        }
+        setEditCategory(initialCategory);
+        setCategoryName("");
+        setSubCategories([]);
+        setSubCategory("");
+      }
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   }
 
@@ -112,11 +123,22 @@ const Categories = () => {
       if (subCategory.trim()) {
         if (subCategories.includes(subCategory.trim())) {
           setSubCategory("");
-          return toast.error("Already added",{position: 'top-right'});
+          return toast.error("Already added", { position: "top-right" });
         }
         setSubCategories((sub) => [...sub, subCategory.trim()]);
         setSubCategory("");
       }
+    }
+  }
+
+  function handleAddSubCatMobile(e){
+    if (subCategory.trim()) {
+      if (subCategories.includes(subCategory.trim())) {
+        setSubCategory("");
+        return toast.error("Already added", { position: "top-right" });
+      }
+      setSubCategories((sub) => [...sub, subCategory.trim()]);
+      setSubCategory("");
     }
   }
 
@@ -130,16 +152,21 @@ const Categories = () => {
     setSubCategory(value);
   }
 
-  function handleLoadEditCategory(category){
-    setEditCategoryStatus(true)
-    setEditCategory({name: category.name, categories: category.categories, _id: category._id, categoryType: category.categoryType})
+  function handleLoadEditCategory(category) {
+    setEditCategoryStatus(true);
+    setEditCategory({
+      name: category.name,
+      categories: category.categories,
+      _id: category._id,
+      categoryType: category.categoryType,
+    });
   }
 
-  useEffect(()=>{
-    setCategoryName(editCategory.name)
-    setSubCategories(editCategory.categories)
-    setCategoryType(editCategory.categoryType)
-  },[editCategory])
+  useEffect(() => {
+    setCategoryName(editCategory.name);
+    setSubCategories(editCategory.categories);
+    setCategoryType(editCategory.categoryType);
+  }, [editCategory]);
 
   useEffect(() => {
     fetchCategories();
@@ -150,7 +177,14 @@ const Categories = () => {
       <h1>Manage Categories</h1>
       <div className="">
         <div className="md:w-1/2 mx-auto flex flex-col py-1 mb-10">
-       {editCategoryStatus && <button onClick={()=> setEditCategoryStatus(false)} className="bg-blue-900 text-white py-1 rounded-lg animate-pulse">Add Category</button>}
+          {editCategoryStatus && (
+            <button
+              onClick={() => setEditCategoryStatus(false)}
+              className="bg-blue-900 text-white py-1 rounded-lg animate-pulse"
+            >
+              Add Category
+            </button>
+          )}
           <input
             type="text"
             value={categoryName}
@@ -158,15 +192,18 @@ const Categories = () => {
             onChange={(e) => setCategoryName(e.target.value)}
             className="border w-full mt-4 py-1 px-2 rounded-lg"
           />
-          <input
-            type="text"
-            value={subCategory}
-            required
-            placeholder="Name of sub category"
-            onKeyDown={handleKeyDownSubCategory}
-            onChange={handleAddNewSubCategory}
-            className="border w-full mt-4 py-1 px-2 rounded-lg"
-          />
+          <div className="flex items-center gap-4 justify-center">
+            <input
+              type="text"
+              value={subCategory}
+              required
+              placeholder="Name of sub category"
+              onKeyDown={handleKeyDownSubCategory}
+              onChange={handleAddNewSubCategory}
+              className="border w-full mt-4 py-1 px-2 rounded-lg"
+            />
+            <button onClick={handleAddSubCatMobile} className="border md:hidden h-[30px] bg-blue-900 text-white mt-4 w-[30px] flex justify-center items-center rounded-full"><BsPlus size={25} /></button>
+          </div>
           {subCategories.length > 0 && (
             <div className="border-x-gray-50 border-2 mt-3 py-2 px-2 flex flex-wrap overflow-x-auto wd-[280px] mdg:w-[530px] gap-3">
               {subCategories.map((cat) => (
@@ -180,13 +217,22 @@ const Categories = () => {
               ))}
             </div>
           )}
-          <select name="" onChange={(e)=> setCategoryType(e.target.value)} value={categoryType} id="" className="border rounded-lg py-2 mt-3">
+          <select
+            name=""
+            onChange={(e) => setCategoryType(e.target.value)}
+            value={categoryType}
+            id=""
+            className="border rounded-lg py-2 mt-3"
+          >
             <option value="">Select the category type</option>
             <option value="product">Product</option>
             <option value="service">Service</option>
           </select>
-          <button onClick={handleAddCategory} className="bg-blue-900 text-white py-1 rounded-md mt-4">
-          {editCategoryStatus ? "Edit Category" : "Create Category"}
+          <button
+            onClick={handleAddCategory}
+            className="bg-blue-900 text-white py-1 rounded-md mt-4"
+          >
+            {editCategoryStatus ? "Edit Category" : "Create Category"}
           </button>
         </div>
         <DashboardTable>
@@ -205,14 +251,26 @@ const Categories = () => {
               categories.map((row, index) => (
                 <tr key={index} className="hover:bg-blue-50">
                   <td className="px-4 py-2 border">{index}</td>
-                  <td className="px-4 py-2 border">{formatDate(row.createdAt)}</td>
+                  <td className="px-4 py-2 border">
+                    {formatDate(row.createdAt)}
+                  </td>
                   <td className="px-4 py-2 border">{row.name}</td>
                   <td className="px-4 py-2 border">{row.categoryType}</td>
-                  <td className="px-4 py-2 border">{row.categories[0]}...({row.categories.length})</td>
+                  <td className="px-4 py-2 border">
+                    {row.categories[0]}...({row.categories.length})
+                  </td>
                   <td className="px-4 py-2 border">
                     <div className="flex gap-3">
-                      <FaEdit cursor={'pointer'} color="blue" onClick={()=> handleLoadEditCategory(row)} />
-                      <FaTrash cursor={'pointer'} onClick={()=> handleDeleteCategory(row._id)} color="blue" />
+                      <FaEdit
+                        cursor={"pointer"}
+                        color="blue"
+                        onClick={() => handleLoadEditCategory(row)}
+                      />
+                      <FaTrash
+                        cursor={"pointer"}
+                        onClick={() => handleDeleteCategory(row._id)}
+                        color="blue"
+                      />
                     </div>
                   </td>
                 </tr>

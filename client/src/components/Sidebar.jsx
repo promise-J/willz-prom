@@ -19,6 +19,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
           cursor="pointer"
           className="absolute right-6 top-4"
         />
+        <Link to='/' >
         <div className="mt-3 flex items-center px-3 gap-5 mb-10">
           <img
             className="w-[40px] h-[40px] rounded-full"
@@ -27,6 +28,7 @@ const HomeSidebar = ({ setShowSidebar }) => {
           />
           <h4>App Ser</h4>
         </div>
+        </Link>
         <div className="text-2xl my-3 rounded-lg py-2 flex justify-center">
           <Link onClick={handleClickItem} to="/">
             <h1>Home</h1>

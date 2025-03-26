@@ -6,7 +6,7 @@ import { MdLightbulbOutline } from "react-icons/md";
 import { FaTv, FaUser } from "react-icons/fa";
 import { PiBowlFood } from "react-icons/pi";
 import { GiHealthPotion } from "react-icons/gi";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import DashboardSidebarItem from "./DashboardSidebarItem";
 import { MdVideoCameraBack } from "react-icons/md";
@@ -24,10 +24,12 @@ export const DashboardSidebar = ({ setShowSidebar }) => {
     >
       <div className="h-full overflow-auto">
         <div className="py-1 flex justify-between pe-5 bg-white">
-          <img
-            src="/images/app-sarr.jpg"
-            className="h-[35px] w-[100px] ms-[30px]"
-          />
+          <Link to='/'>
+            <img
+              src="/images/app-sarr.jpg"
+              className="h-[35px] w-[100px] ms-[30px]"
+            />
+          </Link>
           {userInfo?.image?.imageUrl ? (
             <img
               className="h-8 rounded-full border-2 border-gray-300 cursor-pointer"
@@ -69,11 +71,11 @@ function UserDashboard({ handleCloseSidebar }) {
           path="/dashboard"
         />
         <DashboardSidebarItem
-            handleCloseSidebar={handleCloseSidebar}
-            title='Fund Wallet'
-            icon={<MdWallet color='white' size={24} />}
-            path='/dashboard/fund-wallet'
-           />
+          handleCloseSidebar={handleCloseSidebar}
+          title="Fund Wallet"
+          icon={<MdWallet color="white" size={24} />}
+          path="/dashboard/fund-wallet"
+        />
         <div className="w-[100%] bg-gray-400 h-[1px] my-4"></div>
         <DashboardSidebarItem
           title="Airtime Topup"
@@ -151,12 +153,12 @@ function AdminDashboard({ handleCloseSidebar }) {
           icon={<MdHome color="white" size={24} />}
           path="/dashboard"
         />
-           <DashboardSidebarItem
-            handleCloseSidebar={handleCloseSidebar}
-            title='Fund Wallet'
-            icon={<MdWallet color='white' size={24} />}
-            path='/dashboard/fund-wallet'
-           />
+        <DashboardSidebarItem
+          handleCloseSidebar={handleCloseSidebar}
+          title="Fund Wallet"
+          icon={<MdWallet color="white" size={24} />}
+          path="/dashboard/fund-wallet"
+        />
         <DashboardSidebarItem
           title="VTU Section"
           icon={<PiBowlFood color="white" size={24} />}
@@ -165,7 +167,10 @@ function AdminDashboard({ handleCloseSidebar }) {
           listData={[
             { title: "Airtime Top up", link: "/dashboard/airtime-top-up" },
             { title: "Data top up", link: "/dashboard/data-top-up" },
-            { title: "Pay electricity bill", link: "/dashboard/electricity-bill" },
+            {
+              title: "Pay electricity bill",
+              link: "/dashboard/electricity-bill",
+            },
             { title: "TV Subscription", link: "/dashboard/tv-subscription" },
           ]}
           handleCloseSidebar={handleCloseSidebar}
@@ -183,7 +188,7 @@ function AdminDashboard({ handleCloseSidebar }) {
           icon={<BsShop color="white" size={24} />}
           path="/dashboard/categories"
         />
-       
+
         <button
           onClick={logOut}
           className="text-white mt-2 w-full py-1 rounded-lg border border-white"
@@ -207,12 +212,12 @@ function VendorDashboard({ handleCloseSidebar }) {
           icon={<MdHome color="white" size={24} />}
           path="/dashboard"
         />
-           <DashboardSidebarItem
-            handleCloseSidebar={handleCloseSidebar}
-            title='Fund Wallet'
-            icon={<MdWallet color='white' size={24} />}
-            path='/dashboard/fund-wallet'
-           />
+        <DashboardSidebarItem
+          handleCloseSidebar={handleCloseSidebar}
+          title="Fund Wallet"
+          icon={<MdWallet color="white" size={24} />}
+          path="/dashboard/fund-wallet"
+        />
         <DashboardSidebarItem
           title="VTU Section"
           icon={<PiBowlFood color="white" size={24} />}
@@ -221,7 +226,10 @@ function VendorDashboard({ handleCloseSidebar }) {
           listData={[
             { title: "Airtime Top up", link: "/dashboard/airtime-top-up" },
             { title: "Data top up", link: "/dashboard/data-top-up" },
-            { title: "Pay electricity bill", link: "/dashboard/electricity-bill" },
+            {
+              title: "Pay electricity bill",
+              link: "/dashboard/electricity-bill",
+            },
             { title: "TV Subscription", link: "/dashboard/tv-subscription" },
           ]}
           handleCloseSidebar={handleCloseSidebar}
@@ -245,7 +253,7 @@ function VendorDashboard({ handleCloseSidebar }) {
           icon={<FaUser color="white" size={22} />}
           path="/dashboard/profile"
         />
-        
+
         <button
           onClick={logOut}
           className="text-white mt-2 w-full py-1 rounded-lg border border-white"

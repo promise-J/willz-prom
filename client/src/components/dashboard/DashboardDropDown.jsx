@@ -9,6 +9,7 @@ import { FaTv, FaUser } from "react-icons/fa";
 import { GiHealthPotion } from "react-icons/gi";
 import DashboardSidebarItem from "./DashboardSidebarItem";
 import { IoCloseOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const DashboardDropDown = ({ setShowSidebar, showSidebar }) => {
   const { userInfo, logOut } = useAuth();
@@ -27,10 +28,12 @@ const DashboardDropDown = ({ setShowSidebar, showSidebar }) => {
       <IoCloseOutline className="absolute right-3 top-[50px]" onClick={handleCloseSidebar} color="white" size={27} />
       <div className="h-full overflow-auto bg-blue-900">
         <div className="py-1 flex justify-between pe-5 bg-white">
+        <Link to='/' >
           <img
             src="/images/app-sarr.jpg"
             className="h-[35px] w-[100px] ms-[30px]"
           />
+          </Link>
           {userInfo?.image?.imageUrl ? (
             <img
               className="h-8 rounded-full border-2 border-gray-300 cursor-pointer"
