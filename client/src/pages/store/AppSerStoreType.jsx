@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ApiSetup from "../../utils/ApiSetup";
 import EmptyData from "../../components/NA/EmptyData";
+import { useModal } from "../../context/ModalContext";
 
 const AppSerStoreType = () => {
+  const {setAppLoading} = useModal()
   const { storeType } = useParams();
   const [items, setItems] = useState([]);
 
@@ -12,9 +14,11 @@ const AppSerStoreType = () => {
   useEffect(() => {
     const fetchStoreType = async () => {
       try {
+        setAppLoading(true)
         const res = await api.get(
           `categories/category?categoryType=${storeType}`
         );
+        setAppLoading(false)
         setItems(res?.data?.data?.message);
       } catch (error) {
         console.log(error);
