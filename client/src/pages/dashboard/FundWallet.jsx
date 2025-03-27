@@ -13,16 +13,17 @@ const FundWallet = () => {
       <div className="bg-red-300d  mt-[70px] md:w-1/2 mx-auto">
         <h1 className="text-center text-2xl md:text-3xl">Fund wallet</h1>
         <div className="flex flex-col justify-center gap-3 w-full">
+          <marquee behavior="" className='my-5 text-red-500 italic font-light' direction="">Please do not leave or refresh the page while making payment as you might not be verified</marquee>
           <label htmlFor="">Enter Amount</label>
-          <div className="flex items-center w-full border-2 border-grey-200 bg-blue-900">
-            <div className="text-white h-full p-2">
+          <div className="flex items-center w-full border-2 border-grey-200 rounded-lg">
+            <div className="text-white h-full p-2 rounded-lg bg-blue-900">
               <span className="text-sm">NGN(₦)</span>
             </div>
             <input
               onChange={(e) => setAmount(e.target.value)}
               value={amount}
               type="text"
-              className="w-full py-2 px-4"
+              className="w-full py-2 px-4 rounded-lg"
               placeholder="100"
             />
           </div>

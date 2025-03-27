@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ApiSetup from "../../utils/ApiSetup";
 import { formatNumberWithCommas } from "../../utils/helpers";
+import EmptyData from "../../components/NA/EmptyData";
+import { useModal } from "../../context/ModalContext";
 
 const VendorDisplayCatalog = () => {
+  const {setAppLoading} = useModal()
   const [catalogs, setCatalogs] = useState([]);
 
   const api = ApiSetup()
@@ -11,20 +14,24 @@ const VendorDisplayCatalog = () => {
 
   useEffect(() => {
     async function getVendorCatalog(){
+        setAppLoading(true)
         const res = await api.get(`catalogs/catalog?vendorId=${vendorId}`)
+        setAppLoading(false)
         setCatalogs(res?.data?.data?.message)
     }
     getVendorCatalog()
   }, [vendorId]);
 
-  
+
   return (
     <div>
       <h1 className="text-center text-[25px] md:text-[40px] mt-8 text-blue-900">
         Vendor Catalog
       </h1>
-      <div className="mt-8 grid md:grid-cols-2 p-5 gap-7 grid-cols-1">
-        {catalogs.map((cat) => (
+      <div className={`${catalogs.length > 0 && 'grid'} mt-8 md:grid-cols-2 p-5 gap-7 grid-cols-1`}>
+        {
+        catalogs.length > 0 ?
+        catalogs.map((cat) => (
           <div className="h-[450px] shadow-lg rounded-lg" key={cat?._id}>
             <div className="h-[60%]">
               <img
@@ -56,7 +63,10 @@ const VendorDisplayCatalog = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+        : 
+        <EmptyData title='No Catalog for this Vendor' />
+        }
       </div>
     </div>
   );

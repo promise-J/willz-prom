@@ -29,6 +29,14 @@ const HomeSidebar = ({ setShowSidebar }) => {
           <h4>App Ser</h4>
         </div>
         </Link>
+        {
+          userInfo &&
+        <div className="text-2xl my-3 rounded-lg py-2 flex justify-center">
+          <Link onClick={handleClickItem} to="/dashboard">
+            <h1>Dashboard</h1>
+          </Link>
+        </div>
+        }
         <div className="text-2xl my-3 rounded-lg py-2 flex justify-center">
           <Link onClick={handleClickItem} to="/">
             <h1>Home</h1>
