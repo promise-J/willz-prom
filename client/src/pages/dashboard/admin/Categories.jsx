@@ -225,8 +225,8 @@ const Categories = () => {
             className="border rounded-lg py-2 mt-3"
           >
             <option value="">Select the category type</option>
-            <option value="product">Product</option>
-            <option value="service">Service</option>
+            <option value="products">Product</option>
+            <option value="services">Service</option>
           </select>
           <button
             onClick={handleAddCategory}
